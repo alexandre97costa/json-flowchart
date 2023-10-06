@@ -1,0 +1,34 @@
+{
+    "plan": {
+        "details": {
+            "name":"Plan Name",
+            "project": "Project Name",
+            "factory": "Factpry Name"
+        },
+        // pode ser robots, assets, wtv
+        "nodes": [
+            {
+                "id": 234,
+
+                // type pode ser: start, end, robot ou user_input OU CONDITION
+                "type": "start",
+
+                "details": {
+                    // para nodes start ou end
+                    "timestamp": "2023/09/21 16:59",
+                    "is_ETC": false,
+
+                    // para robots
+                    "acronym": "MST", // com js podemos adicionar o sufixo 1, 2, 3
+                    "name": "Module Site Properties", // para hover/tooltip
+                    "environment": "Quality Assurance Portugal", // com js tornamos em QAP
+                    "status": "success" // lista de opções disponivel no figma 
+                },
+                "target": {
+
+                }
+
+            }
+        ]
+    }
+}
