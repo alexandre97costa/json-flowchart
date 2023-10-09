@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" data-bs-theme="dark">
 
     <head>
         <meta charset="UTF-8">
@@ -16,32 +16,37 @@
         <link rel="stylesheet" href="./style.css">
     </head>
 
-    <body>
+    <body class="bg-dark text-light">
 
         <div class="container">
             <!-- Header -->
             <div class="row row-cols-2 align-items-center">
-                <div class="col">
+                <div class="col text-light">
                     <div class="display-4 py-3">
                         Json <i class="bi bi-arrow-right fs-1 text-primary"></i> Flowchart
                     </div>
                 </div>
                 <div class="col">
-                    <label for="formFile" class="form-label text-secondary">
+                    <label for="input" class="form-label text-secondary">
                         Upload a valid JSON to generate a flowchart
                     </label>
-                    <input class="form-control" type="file" id="formFile">
+                    <div class="input-group">
+                        <input 
+                            class="form-control bg-dark text-secondary border border-secondary" 
+                            type="file" 
+                            accept="application/json" 
+                            id="input"
+                        >
+                        <button class="btn btn-primary">Create<i class="bi bi-rocket-takeoff-fill ms-2"></i></button>
+                    </div>
                 </div>
             </div>
 
             <!-- Content -->
-            <div class="row mb-4">
 
-            </div>
-
-            <div class="row gx-4 vh-100">
+            <div class="row mt-4 gx-4 vh-100">
                 <div class="col">
-                    <div class="p-3 border rounded bg-light">
+                    <div id="output" class="p-3 border border-secondary rounded bg-black">
                         
                     </div>
                 </div>
