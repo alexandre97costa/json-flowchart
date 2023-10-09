@@ -1,8 +1,28 @@
 <script>
-    import blank from "$lib/blank.png"
-    import Node from "../components/node.svelte"
+    import blank from "$lib/blank.png";
+    import Node from "../components/node.svelte";
     let isDark = false;
     let hasFile = false;
+
+    let files;
+
+    $: if (files) {
+        // 'files' is of type 'FileList', not an Array
+        // https://developer.mozilla.org/en-US/docs/Web/API/FileList
+
+        console.log(files[0]);
+    }
+
+    function create() {
+
+        const reader = new FileReader();
+        reader.addEventListener('load', e => {
+            console.log(e.target.result)
+        })
+        reader.readAsDataURL(files[0])
+
+        hasFile = !hasFile
+    }
 </script>
 
 <div class={"container-fluid min-vh-100 " + (isDark ? "bg-dark" : "bg-white")}>
@@ -28,11 +48,12 @@
                             : "bg-white text-dark")}
                     type="file"
                     id="input"
+                    bind:files
                 />
                 <button
                     class="btn btn-primary"
                     on:click={() => {
-                        hasFile = !hasFile;
+                        create();
                     }}
                 >
                     Create
@@ -55,14 +76,13 @@
                             ? "bg-black text-light border-secondary"
                             : "bg-light text-dark")}
                 >
-                    
-                    <Node robotName="MST"/>
+                    <Node robotName="MST" />
                 </div>
             </div>
         {:else}
             <div class="col-3 text-center">
-                <p class="fs-5 text-secondary ">Waiting for a file...</p>
-                <img src={blank} alt="" class="img-fluid">
+                <p class="fs-5 text-secondary">Waiting for a file...</p>
+                <img src={blank} alt="" class="img-fluid" />
             </div>
         {/if}
     </div>
