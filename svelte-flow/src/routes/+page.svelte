@@ -5,23 +5,26 @@
     let hasFile = false;
 
     let files;
+    let json;
+    let nodes = [];
+
+    function readFile() {
+        const reader = new FileReader();
+        reader.addEventListener("load", (e) => {
+            json = JSON.parse(e.target.result);
+            nodes = json.plan.nodes;
+            console.log(json.plan.nodes);
+        });
+        reader.readAsText(files[0]);
+    }
 
     $: if (files) {
         // 'files' is of type 'FileList', not an Array
         // https://developer.mozilla.org/en-US/docs/Web/API/FileList
-
+        hasFile = true;
         console.log(files[0]);
-    }
 
-    function create() {
-
-        const reader = new FileReader();
-        reader.addEventListener('load', e => {
-            console.log(e.target.result)
-        })
-        reader.readAsDataURL(files[0])
-
-        hasFile = !hasFile
+        readFile();
     }
 </script>
 
@@ -40,17 +43,18 @@
             <label for="input" class="form-label text-secondary">
                 Upload a valid JSON to generate a flowchart
             </label>
-            <div class="input-group">
-                <input
-                    class={"form-control border " +
-                        (isDark
-                            ? "bg-black text-light border-secondary"
-                            : "bg-white text-dark")}
-                    type="file"
-                    id="input"
-                    bind:files
-                />
-                <button
+            <!-- <div class="input-group"> -->
+            <input
+                class={"form-control border " +
+                    (isDark
+                        ? "bg-black text-light border-secondary"
+                        : "bg-white text-dark")}
+                type="file"
+                id="input"
+                bind:files
+            />
+            <!-- 
+                    <button
                     class="btn btn-primary"
                     on:click={() => {
                         create();
@@ -58,8 +62,8 @@
                 >
                     Create
                     <i class="bi bi-rocket-takeoff-fill ms-2" />
-                </button>
-            </div>
+                </button> -->
+            <!-- </div> -->
         </div>
     </div>
 
@@ -69,15 +73,22 @@
 
     <div class="row gx-4 mt-4 justify-content-center">
         {#if hasFile}
-            <div class="col-12">
-                <div
-                    class={"p-3 border border rounded " +
+            <div class="col-10">
+
+                <!-- Flowchart -->
+                <div class="d-flex gap-5" style="width: max-content">
+                    {#each nodes as node}
+                        <Node details={node.details} />
+                    {/each}
+                </div>
+
+                <!-- JSON Preview -->
+                <pre
+                    class={"mt-5 p-3 border border rounded " +
                         (isDark
                             ? "bg-black text-light border-secondary"
-                            : "bg-light text-dark")}
-                >
-                    <Node robotName="MST" />
-                </div>
+                            : "bg-light text-dark")}>{JSON.stringify(json, null, 4)} 
+                        </pre>
             </div>
         {:else}
             <div class="col-3 text-center">

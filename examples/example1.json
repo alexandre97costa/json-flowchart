@@ -5,28 +5,70 @@
             "project": "Project Name",
             "factory": "Factory Name"
         },
-        // pode ser robots, assets, wtv
         "nodes": [
             {
                 "id": 123,
                 "target": [456],
 
-                // type pode ser: start, end, robot ou user_input OU CONDITION
-                "type": "start",
-
+                
                 "details": {
-                    // para nodes start ou end
+                    "type": "start",
                     "timestamp": "2023/09/21 16:59",
                     "is_ETC": false,
 
-                    // para robots
-                    "acronym": "MST", // com js podemos adicionar o sufixo 1, 2, 3
-                    "name": "Module Site Properties", // para hover/tooltip
-                    "environment": "Quality Assurance Portugal", // com js tornamos em QAP
-                    "status": "success" // lista de opções disponivel no figma 
+                    "acronym": "MST", 
+                    "name": "Module Site Properties", 
+                    "environment": "Quality Assurance Portugal", 
+                    "status": "success" 
                 }
-                
+            },
+            {
+                "id": 123,
+                "target": [456],
 
+                
+                "details": {
+                    "type": "robot",
+                    "timestamp": "2023/09/21 16:59",
+                    "is_ETC": false,
+
+                    "acronym": "MST", 
+                    "name": "Module Site Properties", 
+                    "environment": "Quality Assurance Portugal", 
+                    "status": "success" 
+                }
+            },
+            {
+                "id": 123,
+                "target": [456],
+
+                
+                "details": {
+                    "type": "robot",
+                    "timestamp": "2023/09/21 16:59",
+                    "is_ETC": false,
+
+                    "acronym": "UPL", 
+                    "name": "OutSystems Upload Module", 
+                    "environment": "Quality Assurance Portugal", 
+                    "status": "executing" 
+                }
+            },
+            {
+                "id": 123,
+                "target": [456],
+
+                
+                "details": {
+                    "type": "end",
+                    "timestamp": "2023/09/21 16:59",
+                    "is_ETC": false,
+
+                    "acronym": "MST", 
+                    "name": "Module Site Properties", 
+                    "environment": "Quality Assurance Portugal", 
+                    "status": "success" 
+                }
             }
         ]
     }
