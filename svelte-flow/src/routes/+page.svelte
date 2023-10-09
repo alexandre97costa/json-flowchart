@@ -1,5 +1,6 @@
 <script>
     import blank from "$lib/blank.png"
+    import Node from "../components/node.svelte"
     let isDark = false;
     let hasFile = false;
 </script>
@@ -47,14 +48,15 @@
 
     <div class="row gx-4 mt-4 justify-content-center">
         {#if hasFile}
-            <div class="col">
+            <div class="col-12">
                 <div
                     class={"p-3 border border rounded " +
                         (isDark
                             ? "bg-black text-light border-secondary"
                             : "bg-light text-dark")}
                 >
-                    A
+                    
+                    <Node robotName="MST"/>
                 </div>
             </div>
         {:else}
