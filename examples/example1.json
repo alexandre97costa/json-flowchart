@@ -3,12 +3,13 @@
         "details": {
             "name":"Plan Name",
             "project": "Project Name",
-            "factory": "Factpry Name"
+            "factory": "Factory Name"
         },
         // pode ser robots, assets, wtv
         "nodes": [
             {
-                "id": 234,
+                "id": 123,
+                "target": [456],
 
                 // type pode ser: start, end, robot ou user_input OU CONDITION
                 "type": "start",
@@ -23,10 +24,8 @@
                     "name": "Module Site Properties", // para hover/tooltip
                     "environment": "Quality Assurance Portugal", // com js tornamos em QAP
                     "status": "success" // lista de opções disponivel no figma 
-                },
-                "target": {
-
                 }
+                
 
             }
         ]
