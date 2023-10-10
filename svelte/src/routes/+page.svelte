@@ -1,6 +1,8 @@
 <script>
     import blank from "$lib/blank.png";
     import Node from "../components/node.svelte";
+    import RecurseNode from "../components/recurse_node.svelte";
+    import JsonPreview from "../components/json_preview.svelte";
     import { Validator } from "jsonschema";
     var v = new Validator();
     // console.log(v.validate(4, {"type": "number"}));
@@ -17,8 +19,8 @@
         const reader = new FileReader();
         reader.addEventListener("load", (e) => {
             json = JSON.parse(e.target.result);
-            nodes = json.plan.nodes;
-            console.log(json.plan.nodes);
+            nodes = json.nodes;
+            console.log(json.nodes);
         });
         reader.readAsText(files[0]);
     }
@@ -58,17 +60,6 @@
                 id="input"
                 bind:files
             />
-            <!-- 
-                    <button
-                    class="btn btn-primary"
-                    on:click={() => {
-                        create();
-                    }}
-                >
-                    Create
-                    <i class="bi bi-rocket-takeoff-fill ms-2" />
-                </button> -->
-            <!-- </div> -->
         </div>
     </div>
 
@@ -76,24 +67,16 @@
 
     <!-- Content -->
 
-    <div class="row gx-4 mt-4 justify-content-center">
+    <div class="row gx-4 mt-5 justify-content-center">
         {#if hasFile}
             <div class="col-10">
 
                 <!-- Flowchart -->
-                <div class="d-flex gap-5" style="width: max-content">
-                    {#each nodes as node}
-                        <Node details={node.details} />
-                    {/each}
+                <div class="p-3 border rounded bg-light">
+                    <RecurseNode {nodes} start={true} />
                 </div>
 
-                <!-- JSON Preview -->
-                <pre
-                    class={"mt-5 p-3 border border rounded " +
-                        (isDark
-                            ? "bg-black text-success border-secondary"
-                            : "bg-light text-danger")}>{JSON.stringify(json, null, 4)} 
-                        </pre>
+                <JsonPreview {isDark} {json}/>
             </div>
         {:else}
             <div class="col-3 text-center">
@@ -110,6 +93,7 @@
         <button
             class="btn dropdown-toggle border"
             class:btn-dark={isDark}
+            class:border-secondary={isDark}
             class:btn-light={!isDark}
             type="button"
             id="dropdownMenuButtonLight"

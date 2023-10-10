@@ -1,17 +1,9 @@
 <script>
     export let details = {};
-    import Status from "../components/status.svelte"
+    import Status from "../components/status.svelte";
 </script>
 
-{#if details.type == "start"}
-    <div
-        class="node bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
-    >
-        <!-- <i class="fs-4 text-danger bi bi-wrench-adjustable-circle-fill" /> -->
-        <span class="fw-semibold fs-5 lh-1 text-dark">Start</span>
-        <span class="timestamp lh-1 text-secondary">{details.timestamp}</span>
-    </div>
-{:else if details.type == "robot"}
+{#if details.type == "robot"}
     <div
         class="node bg-white border px-3 py-1 rounded d-flex align-items-center gap-3"
     >
@@ -28,12 +20,28 @@
         >
     </div>
 {:else if details.type == "end"}
+    <!-- Desenha um end -->
     <div
         class="node bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
     >
-        <!-- <i class="fs-4 text-danger bi bi-wrench-adjustable-circle-fill" /> -->
-        <span class="fw-semibold fs-5 lh-1 text-dark">End</span>
-        <span class="timestamp lh-1 text-secondary">{details.timestamp}</span>
+        <span class="fw-semibold fs-5 lh-1 text-dark" class:py-1={!details.timestamp}>End</span>
+        {#if details.timestamp}
+            <span class="timestamp lh-1 text-secondary">
+                {details.timestamp}
+            </span>
+        {/if}
+    </div>
+{:else}
+    <!-- Desenha um start -->
+    <div
+        class="node bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
+    >
+        <span class="fw-semibold fs-5 lh-1 text-dark" class:py-1={!details.timestamp}>Start</span>
+        {#if details.timestamp}
+            <span class="timestamp lh-1 text-secondary">
+                {details.timestamp}
+            </span>
+        {/if}
     </div>
 {/if}
 
