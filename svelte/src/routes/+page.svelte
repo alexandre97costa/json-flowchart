@@ -1,12 +1,17 @@
 <script>
     import blank from "$lib/blank.png";
     import Node from "../components/node.svelte";
+    import { Validator } from "jsonschema";
+    var v = new Validator();
+    // console.log(v.validate(4, {"type": "number"}));
+    
     let isDark = false;
     let hasFile = false;
 
     let files;
     let json;
     let nodes = [];
+
 
     function readFile() {
         const reader = new FileReader();
@@ -86,8 +91,8 @@
                 <pre
                     class={"mt-5 p-3 border border rounded " +
                         (isDark
-                            ? "bg-black text-light border-secondary"
-                            : "bg-light text-dark")}>{JSON.stringify(json, null, 4)} 
+                            ? "bg-black text-success border-secondary"
+                            : "bg-light text-danger")}>{JSON.stringify(json, null, 4)} 
                         </pre>
             </div>
         {:else}
@@ -120,8 +125,7 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonLight">
             <li>
-                <a
-                    href="#"
+                <button
                     class="dropdown-item d-flex justify-content-between gap-3"
                     class:active={!isDark}
                     on:click={() => {
@@ -133,11 +137,10 @@
                     {#if !isDark}
                         <i class="bi bi-check" />
                     {/if}
-                </a>
+                </button>
             </li>
             <li>
-                <a
-                    href="#"
+                <button
                     class="dropdown-item d-flex justify-content-between gap-3"
                     class:active={isDark}
                     on:click={() => {
@@ -149,7 +152,7 @@
                     {#if isDark}
                         <i class="bi bi-check" />
                     {/if}
-                </a>
+                </button>
             </li>
         </ul>
     </div>
