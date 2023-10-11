@@ -8,6 +8,9 @@
     let isBeingDragged = false;
     let hasDraggable = false;
 
+    // todo: learn svelte stores
+    // https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/Svelte_stores#dealing_with_our_app_state
+
     let img = new Image();
     img.src = "https://ohiofi.com/assets/nyan.gif";
     // img.src = "https://picsum.photos/100/100";
