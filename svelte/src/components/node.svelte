@@ -13,6 +13,7 @@
         // e.dataTransfer.setDragImage(img, 0, 0);
         // e.preventDefault();
         e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", JSON.stringify(details))
         isBeingDragged = true;
     }
 
@@ -37,6 +38,7 @@
     // when a draggable is dropped on this node
     function drop(e) {
         e.preventDefault();
+        console.log("You moved " + JSON.parse(e.dataTransfer.getData("text/plain")).acronym + " into " + details.acronym);
         hasDraggable = false;
     }
 </script>
