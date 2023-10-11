@@ -8,7 +8,7 @@
 <div class="d-flex align-items-start" style="min-width: max-content;">
     {#if start}
         <Node details={{"type":"start"}} />
-        <Line />
+        <Line on:drop={(e) => { console.log(e.detail.acronym + " has been dropped on the line after Start") }}/>
     {/if}
     {#each nodes as node, index}
         {#if node.condition}
@@ -20,9 +20,10 @@
             </div>
         {:else}
             <Node details={node.details} />
-            <Line />
-            <!-- Adds an end node automatically -->
-            {#if nodes.length - 1 == index}
+            <Line on:drop={(e) => { console.log(e.detail.acronym + " has been dropped on the line after " + node.details.acronym) }}/>
+
+            <!-- Adds an end node automatically, if one is not present -->
+            {#if nodes.length - 1 == index && node.details.type != "end"}
                 <Node details={{"type":"end"}} />
             {/if}
         {/if}

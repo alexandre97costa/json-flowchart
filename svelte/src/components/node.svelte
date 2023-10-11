@@ -6,14 +6,23 @@
     let hasDraggable = false;
 
     let img = new Image();
-    img.src = "https://picsum.photos/200/300";
+    img.src = "https://ohiofi.com/assets/nyan.gif";
+    // img.src = "https://picsum.photos/100/100";
 
     // when you start dragging this node
     function dragstart(e) {
-        // e.dataTransfer.setDragImage(img, 0, 0);
-        // e.preventDefault();
+        var clone = e.target.cloneNode(true);
+        clone.style.position = "absolute";
+        clone.style.top = "-1000px";
+        clone.classList.add("border-primary");
+        document.body.appendChild(clone);
+
+        // console.log(clone);
+
+        e.dataTransfer.setDragImage(clone, 0, 0);
+
         e.dataTransfer.effectAllowed = "move";
-        e.dataTransfer.setData("text/plain", JSON.stringify(details))
+        e.dataTransfer.setData("text/plain", JSON.stringify(details));
         isBeingDragged = true;
     }
 
@@ -26,7 +35,20 @@
     function dragover(e) {
         e.preventDefault();
         e.dataTransfer.dropEffect = "move";
+
+        // if (JSON.parse(e.dataTransfer.getData("text/plain")).acronym == details.acronym) {
+        //     alert('Same robot!')
+        // }
+
         hasDraggable = true;
+    }
+    
+    function dragenter(e) {
+        // hasDraggable = true;
+        console.log(e.dataTransfer.getData("text/plain"))
+        // if (e.srcElement == e.target) {
+        //     console.log('aaa');
+        // }
     }
 
     // when a draggable leaves this node
@@ -38,7 +60,12 @@
     // when a draggable is dropped on this node
     function drop(e) {
         e.preventDefault();
-        console.log("You moved " + JSON.parse(e.dataTransfer.getData("text/plain")).acronym + " into " + details.acronym);
+        console.log(
+            "You moved " +
+                JSON.parse(e.dataTransfer.getData("text/plain")).acronym +
+                " into " +
+                details.acronym
+        );
         hasDraggable = false;
     }
 </script>
@@ -46,19 +73,21 @@
 {#if details.type == "robot"}
     <div class="position-relative">
         <div
-            class="node bg-white border border-secondary px-3 py-2 rounded d-flex align-items-center gap-3"
+            id={details?.id}
+            class="node robot bg-white border border-2 px-3 py-2 rounded d-flex align-items-center gap-3"
             class:grabbing={isBeingDragged}
             draggable="true"
             on:dragstart={(e) => dragstart(e)}
             on:dragend={(e) => dragend(e)}
             on:dragover={(e) => dragover(e)}
+            on:dragenter={(e) => dragenter(e)}
             on:dragleave={(e) => dragleave(e)}
             on:drop={(e) => drop(e)}
             role="treeitem"
             aria-selected="false"
             tabindex="0"
         >
-            <Status status={details.status} />
+            <!-- <Status status={details.status} /> -->
             <span class="fw-semibold fs-5 text-dark flex-fill"
                 >{details.acronym}</span
             >
@@ -72,19 +101,31 @@
         </div>
 
         <div
-            class="position-absolute pe-none top-0 start-0 w-100 h-100 bg-light rounded border border-3 border-secondary"
+            class="position-absolute pe-none top-0 start-0 w-100 h-100 bg-white rounded border border-2"
+            class:d-none={!isBeingDragged}
+        >
+            <div
+                class="d-flex w-100 h-100 justify-content-center align-items-center"
+            >
+                <!-- <i class="bi bi-arrow-left-right fs-4 text-secondary"></i> -->
+            </div>
+        </div>
+        <div
+            class="position-absolute pe-none top-0 start-0 w-100 h-100 bg-white rounded border border-3"
             class:d-none={!hasDraggable}
             style="border-style: dashed !important;"
         >
-            <!-- <div class="d-flex w-100 h-100 justify-content-center align-items-center">
-                <i class="bi bi-arrow-left-right fs-3"></i>
-            </div> -->
+            <div
+                class="d-flex w-100 h-100 justify-content-center align-items-center"
+            >
+                <i class="bi bi-arrow-left-right fs-4 text-secondary" />
+            </div>
         </div>
     </div>
 {:else if details.type == "end"}
     <!-- Desenha um end -->
     <div
-        class="node bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
+        class="node end bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
     >
         <span
             class="fw-semibold fs-5 lh-1 text-dark"
@@ -99,7 +140,7 @@
 {:else}
     <!-- Desenha um start -->
     <div
-        class="node bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
+        class="node start bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
     >
         <span
             class="fw-semibold fs-5 lh-1 text-dark"
@@ -116,9 +157,10 @@
 <style>
     .node {
         min-width: 180px;
+        max-width: 200px;
     }
 
-    .node:hover {
+    .node.robot:hover {
         border-color: var(--bs-primary) !important;
         cursor: grab;
     }

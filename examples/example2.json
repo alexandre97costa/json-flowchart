@@ -3,6 +3,7 @@
     "nodes": [
         {
             "details": {
+                "id":"R1",
                 "type": "robot",
                 "acronym": "Robot 1",
                 "name": "Module Site Properties",
@@ -12,6 +13,7 @@
         },
         {
             "details": {
+                "id":"R2",
                 "type": "robot",
                 "acronym": "Robot 2",
                 "name": "Module Site Properties",
@@ -24,6 +26,7 @@
                     "nodes": [
                         {
                             "details": {
+                                "id":"R3",
                                 "type": "robot",
                                 "acronym": "Robot 3",
                                 "name": "Module Site Properties",
@@ -33,6 +36,7 @@
                         },
                         {
                             "details": {
+                                "id":"R4",
                                 "type": "robot",
                                 "acronym": "Robot 4",
                                 "name": "Module Site Properties",
@@ -46,6 +50,7 @@
                     "nodes": [
                         {
                             "details": {
+                                "id":"R5",
                                 "type": "robot",
                                 "acronym": "Robot 5",
                                 "name": "Module Site Properties",
@@ -55,6 +60,7 @@
                         },
                         {
                             "details": {
+                                "id":"R6",
                                 "type": "robot",
                                 "acronym": "Robot 6",
                                 "name": "Module Site Properties",

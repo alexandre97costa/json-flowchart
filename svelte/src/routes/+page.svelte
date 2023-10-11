@@ -72,7 +72,7 @@
             <div class="col-10">
 
                 <!-- Flowchart -->
-                <div class="p-3 border rounded bg-light" style="max-width: 100%; overflow-x: scroll;">
+                <div class="p-3 border rounded bg-white" style="max-width: 100%; overflow-x: scroll;">
                     <RecurseNode {nodes} start={true} />
                 </div>
 
