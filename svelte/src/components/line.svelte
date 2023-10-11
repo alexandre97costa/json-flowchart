@@ -64,7 +64,7 @@
                 (isCondition ? "align-items-end mt-2" : "align-items-center")}
         >
             <i
-                class="bi bi-arrow-down-short fs-3 bg-white lh-1 p-1 text-secondary border border-3 rounded"
+                class="bi bi-arrow-down-short fs-3 bg-white lh-1 p-1 text-white border border-3 rounded"
             />
         </div>
     {/if}

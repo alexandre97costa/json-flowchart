@@ -1,6 +1,9 @@
 <script>
-    export let details = {};
     import Status from "../components/status.svelte";
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
+    
+    export let details = {};
 
     let isBeingDragged = false;
     let hasDraggable = false;
@@ -11,7 +14,7 @@
 
     // when you start dragging this node
     function dragstart(e) {
-        var clone = e.target.cloneNode(true);
+        let clone = e.target.cloneNode(true);
         clone.style.position = "absolute";
         clone.style.top = "-1000px";
         clone.classList.add("border-primary");
@@ -66,16 +69,18 @@
                 " into " +
                 details.acronym
         );
+        
+        details = JSON.parse(e.dataTransfer.getData("text/plain"))
         hasDraggable = false;
     }
 </script>
 
 {#if details.type == "robot"}
-    <div class="position-relative">
+
+    <div class="position-relative" class:no-drop={isBeingDragged}>
         <div
             id={details?.id}
             class="node robot bg-white border border-2 px-3 py-2 rounded d-flex align-items-center gap-3"
-            class:grabbing={isBeingDragged}
             draggable="true"
             on:dragstart={(e) => dragstart(e)}
             on:dragend={(e) => dragend(e)}
@@ -100,16 +105,7 @@
             >
         </div>
 
-        <div
-            class="position-absolute pe-none top-0 start-0 w-100 h-100 bg-white rounded border border-2"
-            class:d-none={!isBeingDragged}
-        >
-            <div
-                class="d-flex w-100 h-100 justify-content-center align-items-center"
-            >
-                <!-- <i class="bi bi-arrow-left-right fs-4 text-secondary"></i> -->
-            </div>
-        </div>
+        
         <div
             class="position-absolute pe-none top-0 start-0 w-100 h-100 bg-white rounded border border-3"
             class:d-none={!hasDraggable}
@@ -119,6 +115,17 @@
                 class="d-flex w-100 h-100 justify-content-center align-items-center"
             >
                 <i class="bi bi-arrow-left-right fs-4 text-secondary" />
+            </div>
+        </div>
+
+        <div
+            class="position-absolute pe-none top-0 start-0 w-100 h-100 bg-light rounded border border-2"
+            class:d-none={!isBeingDragged}
+        >
+            <div
+                class="d-flex w-100 h-100 justify-content-center align-items-center"
+            >
+                <!-- <i class="bi bi-arrow-left-right fs-4 text-secondary"></i> -->
             </div>
         </div>
     </div>
@@ -164,6 +171,11 @@
         border-color: var(--bs-primary) !important;
         cursor: grab;
     }
+
+    .no-drop {
+        cursor: no-drop;
+    }
+
     .grabbing {
         cursor: grabbing !important;
     }

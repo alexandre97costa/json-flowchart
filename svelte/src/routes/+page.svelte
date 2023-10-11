@@ -6,14 +6,13 @@
     import { Validator } from "jsonschema";
     var v = new Validator();
     // console.log(v.validate(4, {"type": "number"}));
-    
+
     let isDark = false;
     let hasFile = false;
 
     let files;
     let json;
     let nodes = [];
-
 
     function readFile() {
         const reader = new FileReader();
@@ -69,14 +68,16 @@
 
     <div class="row gx-4 mt-5 justify-content-center">
         {#if hasFile}
-            <div class="col-10">
-
+            <div class="col-11">
                 <!-- Flowchart -->
-                <div class="p-3 border rounded bg-white" style="max-width: 100%; overflow-x: scroll;">
+                <div
+                    class="px-3 py-5 border rounded bg-white"
+                    style="max-width: 100%; overflow-x: scroll;"
+                >
                     <RecurseNode {nodes} start={true} />
                 </div>
 
-                <JsonPreview {isDark} {json}/>
+                <JsonPreview {isDark} {json} />
             </div>
         {:else}
             <div class="col-3 text-center">
