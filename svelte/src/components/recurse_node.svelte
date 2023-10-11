@@ -1,8 +1,19 @@
 <script>
-    export let nodes = [];
-    export let start = false;
     import Node from "./node.svelte";
     import Line from "./line.svelte";
+    export let nodes = [];
+    export let start = false;
+
+    let nodeDragDetails = {}
+
+    function nodeDragStart(e) {
+        console.log(e.detail);
+        nodeDragDetails = e.detail;
+    }
+
+    function nodeDropped() {
+
+    }
 </script>
 
 <div class="d-flex align-items-start" style="min-width: max-content;">

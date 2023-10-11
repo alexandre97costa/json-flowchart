@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <hr class="mt-3 mb-4 text-secondary d-none d-md-block" />
+    <!-- <hr class="mt-3 mb-4 text-secondary d-none d-md-block" /> -->
 
     <!-- Content -->
 
@@ -71,8 +71,8 @@
             <div class="col-11">
                 <!-- Flowchart -->
                 <div
-                    class="px-3 py-5 border rounded bg-white"
-                    style="max-width: 100%; overflow-x: scroll;"
+                    class="px-3 py-5 border rounded bg-white d-flex justify-content-start"
+                    style="max-width: 100%; overflow-x: auto;"
                 >
                     <RecurseNode {nodes} start={true} />
                 </div>

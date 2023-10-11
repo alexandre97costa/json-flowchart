@@ -2,7 +2,7 @@
     import Status from "../components/status.svelte";
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
-    
+
     export let details = {};
 
     let isBeingDragged = false;
@@ -19,9 +19,6 @@
         clone.style.top = "-1000px";
         clone.classList.add("border-primary");
         document.body.appendChild(clone);
-
-        // console.log(clone);
-
         e.dataTransfer.setDragImage(clone, 0, 0);
 
         e.dataTransfer.effectAllowed = "move";
@@ -30,53 +27,40 @@
     }
 
     function dragend(e) {
-        // e.preventDefault();
         isBeingDragged = false;
+        console.log(details.acronym);
     }
 
     // when a draggable is on top of this node
     function dragover(e) {
-        e.preventDefault();
         e.dataTransfer.dropEffect = "move";
-
-        // if (JSON.parse(e.dataTransfer.getData("text/plain")).acronym == details.acronym) {
-        //     alert('Same robot!')
-        // }
-
         hasDraggable = true;
     }
-    
+
     function dragenter(e) {
-        // hasDraggable = true;
-        console.log(e.dataTransfer.getData("text/plain"))
-        // if (e.srcElement == e.target) {
-        //     console.log('aaa');
-        // }
+        // console.log(e.dataTransfer.getData("text/plain"))
     }
 
     // when a draggable leaves this node
     function dragleave(e) {
-        e.preventDefault();
         hasDraggable = false;
     }
 
     // when a draggable is dropped on this node
     function drop(e) {
-        e.preventDefault();
         console.log(
             "You moved " +
                 JSON.parse(e.dataTransfer.getData("text/plain")).acronym +
                 " into " +
                 details.acronym
         );
-        
-        details = JSON.parse(e.dataTransfer.getData("text/plain"))
+
+        details = JSON.parse(e.dataTransfer.getData("text/plain"));
         hasDraggable = false;
     }
 </script>
 
 {#if details.type == "robot"}
-
     <div class="position-relative" class:no-drop={isBeingDragged}>
         <div
             id={details?.id}
@@ -84,10 +68,10 @@
             draggable="true"
             on:dragstart={(e) => dragstart(e)}
             on:dragend={(e) => dragend(e)}
-            on:dragover={(e) => dragover(e)}
             on:dragenter={(e) => dragenter(e)}
-            on:dragleave={(e) => dragleave(e)}
-            on:drop={(e) => drop(e)}
+            on:dragover|preventDefault={(e) => dragover(e)}
+            on:dragleave|preventDefault={(e) => dragleave(e)}
+            on:drop|preventDefault={(e) => drop(e)}
             role="treeitem"
             aria-selected="false"
             tabindex="0"
@@ -105,11 +89,10 @@
             >
         </div>
 
-        
         <div
             class="position-absolute pe-none top-0 start-0 w-100 h-100 bg-white rounded border border-3"
             class:d-none={!hasDraggable}
-            style="border-style: dashed !important;"
+            style:border-style|important="dashed"
         >
             <div
                 class="d-flex w-100 h-100 justify-content-center align-items-center"
