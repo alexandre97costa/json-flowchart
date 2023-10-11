@@ -52,7 +52,8 @@
             on:dragover={(e) => dragover(e)}
             on:dragleave={(e) => dragleave(e)}
             on:drop={(e) => drop(e)}
-            role="textbox"
+            role="treeitem"
+            aria-selected="false"
             tabindex="0"
         >
             <Status status={details.status} />
