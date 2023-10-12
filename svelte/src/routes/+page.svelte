@@ -20,8 +20,6 @@
     function readFile(file) {
         const reader = new FileReader();
         reader.addEventListener("load", (e) => {
-            console.log(e.target.result);
-
             json = JSON.parse(e.target.result);
             nodes = json.nodes;
         });
@@ -32,8 +30,6 @@
         // 'files' is of type 'FileList', not an Array
         // https://developer.mozilla.org/en-US/docs/Web/API/FileList
         hasFile = true;
-        console.log(files[0]);
-
         readFile(files[0]);
     }
 </script>
