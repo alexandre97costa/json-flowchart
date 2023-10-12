@@ -3,7 +3,7 @@
     import blank from "$lib/blank.png";
     import Example_2 from "../../../examples/example2.json";
     import Example_Empty from "../../../examples/example_empty.json";
-    import { isDark } from "../stores";
+    import { isDark, flowchart } from "../stores";
 
     // Components
     import Flowchart from "../components/flowchart.svelte";
@@ -24,7 +24,7 @@
     function getNodeById(node_id) {
         // find node path by id
         // todo
-        let node_path = JsonPath.paths(json, "$..details")
+        let node_path = JsonPath.paths($flowchart, "$..details")
             .map((path) => {
                 return path.reduce((accumulator, current, index) => {
                     return index == 0
@@ -32,15 +32,15 @@
                         : (accumulator += "['" + current + "']");
                 });
             })
-            .find((path) => JsonPath.query(json, path)[0].id == node_id);
+            .find((path) => JsonPath.query($flowchart, path)[0].id == node_id);
 
         // get obj by path
-        return JsonPath.query(json, node_path)[0];
+        return JsonPath.query($flowchart, node_path)[0];
     }
 
     function getNodeLocation(node_obj) {
         let node_string = JSON.stringify(node_obj);
-        let index = JSON.stringify(json).indexOf(node_string);
+        let index = JSON.stringify($flowchart).indexOf(node_string);
 
         return {
             start: index,
@@ -69,29 +69,29 @@
             last_location = node1_location;
         }
 
-        let json_string = JSON.stringify(json);
+        let flowchart_string = JSON.stringify($flowchart);
 
-        // there are 3 segments in this json, 2 slices need to happen
+        // there are 3 segments in this flowchart, 2 slices need to happen
 
         // segment 1 ---- node ---- segment 2 ---- node ---- segment 3
 
         // we need to slice this string in 3 strings, and add the nodes in reverse order
 
     
-        let segment1 = json_string.slice(0, first_location.start);
-        let segment2 = json_string.slice(first_location.end, last_location.start);
-        let segment3 = json_string.slice(last_location.end);
+        let segment1 = flowchart_string.slice(0, first_location.start);
+        let segment2 = flowchart_string.slice(first_location.end, last_location.start);
+        let segment3 = flowchart_string.slice(last_location.end);
 
-        json_string = segment1 + JSON.stringify(last_node) + segment2 + JSON.stringify(first_node) + segment3;
+        flowchart_string = segment1 + JSON.stringify(last_node) + segment2 + JSON.stringify(first_node) + segment3;
 
-        json = JSON.parse(json_string)
+        $flowchart = JSON.parse(flowchart_string)
         
     }
 
     function readFile(file) {
         const reader = new FileReader();
         reader.addEventListener("load", (e) => {
-            json = JSON.parse(e.target.result);
+            $flowchart = JSON.parse(e.target.result);
         });
         reader.readAsText(file);
     }
@@ -136,13 +136,13 @@
     <div class="row gx-4 mt-5 justify-content-center">
         {#if hasFile}
             <div class="col-11 d-flex flex-column align-items-center gap-3">
-                <Flowchart nodes={json.nodes} />
+                <Flowchart/>
                 <button class="btn btn-danger fs-4 px-3 d-flex gap-2  justify-content-center" on:click={e => {swapNodes("R1", "R3")}}>
                     <i class="bi bi-1-square"></i>
                     <i class="bi bi-arrow-left-right"></i>
                     <i class="bi bi-3-square"></i>
                 </button>
-                <JsonPreview {json} />
+                <JsonPreview/>
             </div>
         {:else}
             <div class="col-4 text-center">

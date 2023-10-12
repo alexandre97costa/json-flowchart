@@ -1,10 +1,13 @@
 <script>
     import RecurseNode from "./recurse_node.svelte";
-    import { grabbed_node_id } from "../stores";
+    import { grabbed_node_id, flowchart } from "../stores";
 
-    export let nodes = [];
 
-    // os nodes são responsáveis por editarem o store "grabbed_node";
+    $: {
+        console.log("Drag started in node: " + $grabbed_node_id);
+    }
+
+    // os nodes são responsáveis por editarem o store "grabbed_node_id";
     // o flowchart apanha logo a info atualizada, mas não faz nada com esse update;
 
     // 1. os nodes e lines têm um on:drop, que edita o store "drop_location"
@@ -19,5 +22,5 @@
     class="px-3 py-5 border rounded bg-white d-flex justify-content-start"
     style="max-width: 100%; overflow-x: auto;"
 >
-    <RecurseNode {nodes} start={true} />
+    <RecurseNode nodes={$flowchart.nodes} start={true} />
 </div>

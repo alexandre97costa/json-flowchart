@@ -18,20 +18,23 @@
 
     // when you start dragging this node
     function dragstart(e) {
+        // dragged image
         let clone = e.target.cloneNode(true);
         clone.style.position = "absolute";
         clone.style.top = "-1000px";
         clone.classList.add("border-primary");
         document.body.appendChild(clone);
         e.dataTransfer.setDragImage(clone, 0, 0);
-
         e.dataTransfer.effectAllowed = "move";
+
+        // svelte info
         isBeingDragged = true;
+        $grabbed_node_id = details.id;
+
     }
 
     function dragend(e) {
         isBeingDragged = false;
-        console.log(details.acronym);
     }
 
     // when a draggable is on top of this node
@@ -41,7 +44,7 @@
     }
 
     function dragenter(e) {
-        // console.log(e.dataTransfer.getData("text/plain"))
+        
     }
 
     // when a draggable leaves this node
@@ -51,13 +54,6 @@
 
     // when a draggable is dropped on this node
     function drop(e) {
-        console.log(
-            "You moved " +
-                JSON.parse(e.dataTransfer.getData("text/plain")).acronym +
-                " into " +
-                details.acronym
-        );
-
         hasDraggable = false;
     }
 </script>

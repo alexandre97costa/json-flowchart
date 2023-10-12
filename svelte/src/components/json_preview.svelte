@@ -1,10 +1,10 @@
 <script>
-    import { isDark } from "../stores";
+    import { isDark, flowchart } from "../stores";
     export let json;
 </script>
 
-<div class="accordion mt-5 " id="accordionExample">
-    <div class={"accordion-item border " + ($isDark ? "border-secondary": "")}>
+<div class="accordion mt-5" id="accordionExample">
+    <div class={"accordion-item border " + ($isDark ? "border-secondary" : "")}>
         <h2 class="accordion-header" id="headingOne">
             <button
                 class={"accordion-button "}
@@ -23,12 +23,14 @@
             aria-labelledby="headingOne"
             data-bs-parent="#accordionExample"
         >
-            <div class={"accordion-body " + ($isDark ? "bg-black":"bg-light")}>
+            <div
+                class={"accordion-body " + ($isDark ? "bg-black" : "bg-light")}
+            >
                 <pre
                     class={$isDark
                         ? "bg-black text-success border-secondary"
                         : "bg-light text-secondary"}>{JSON.stringify(
-                        json,
+                        $flowchart,
                         null,
                         4
                     )} 
