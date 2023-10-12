@@ -1,6 +1,6 @@
 <script>
     import Status from "../components/status.svelte";
-    import { grabbed_node_id } from "../stores";
+    import { grabbed_node_id, drop_location } from "../stores";
     import { createEventDispatcher, onDestroy } from "svelte";
     const dispatch = createEventDispatcher();
 
@@ -55,6 +55,8 @@
     // when a draggable is dropped on this node
     function drop(e) {
         hasDraggable = false;
+        $drop_location = { id: details.id, type: "node" };
+        dispatch("dropped");
     }
 </script>
 

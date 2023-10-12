@@ -1,6 +1,5 @@
 <script>
     import { isDark, flowchart } from "../stores";
-    export let json;
 </script>
 
 <div class="accordion mt-5" id="accordionExample">

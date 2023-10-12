@@ -1,10 +1,14 @@
 <script>
     import JsonPath from "jsonpath";
-    import { grabbed_node_id, flowchart } from "../stores";
+    import { grabbed_node_id, drop_location, flowchart } from "../stores";
     import RecurseNode from "./recurse_node.svelte";
 
     $: {
-        console.log("Drag started in node: " + $grabbed_node_id);
+        if ($grabbed_node_id)
+            console.log("Drag started in node: " + $grabbed_node_id);
+    }
+    $: {
+        if ($drop_location) console.log("Dropped on node: ", $drop_location.id);
     }
 
     // os nodes são responsáveis por editarem o store "grabbed_node_id";
@@ -14,8 +18,11 @@
     // 3. quando o drop_location muda, o flowchart então pega no grabbed node e insere-o no seu nodes
     // 4. por reactividade, os recurse_nodes são todos atualizados, refrescando o flowchart por completo
 
-    // nota: talvez seja appropriado o objeto json ser guardado num store tb,
-    // para que o JsonPreview tb tenha acesso à nova info.
+    function handleDropped() {
+        if ($drop_location.type == "node") {
+            swapNodes($grabbed_node_id, $drop_location.id);
+        }
+    }
 
     function getNodeById(node_id) {
         // find node path by id
@@ -94,16 +101,11 @@
     class="px-3 py-5 border rounded bg-white d-flex justify-content-start"
     style="max-width: 100%; overflow-x: auto;"
 >
-    <RecurseNode nodes={$flowchart.nodes} start={true} />
+    <RecurseNode
+        nodes={$flowchart.nodes}
+        start={true}
+        on:dropped={(e) => {
+            handleDropped();
+        }}
+    />
 </div>
-
-<button
-    class="btn btn-danger fs-4 px-3 d-flex gap-2 justify-content-center"
-    on:click={(e) => {
-        swapNodes("R1", "R3");
-    }}
->
-    <i class="bi bi-1-square" />
-    <i class="bi bi-arrow-left-right" />
-    <i class="bi bi-3-square" />
-</button>

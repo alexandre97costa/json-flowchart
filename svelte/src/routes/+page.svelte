@@ -66,7 +66,7 @@
 
     <div class="row gx-4 mt-5 justify-content-center">
         {#if hasFile}
-            <div class="col-11 d-flex flex-column align-items-center gap-3">
+            <div class="col-11">
                 <Flowchart/>
                 <JsonPreview/>
             </div>
