@@ -1,5 +1,8 @@
 <script>
     import blank from "$lib/blank.png";
+    import Example_2 from "../../../examples/example2.json";
+    import Example_Empty from "../../../examples/example_empty.json";
+
     import Node from "../components/node.svelte";
     import RecurseNode from "../components/recurse_node.svelte";
     import JsonPreview from "../components/json_preview.svelte";
@@ -14,14 +17,15 @@
     let json;
     let nodes = [];
 
-    function readFile() {
+    function readFile(file) {
         const reader = new FileReader();
         reader.addEventListener("load", (e) => {
+            console.log(e.target.result);
+
             json = JSON.parse(e.target.result);
             nodes = json.nodes;
-            console.log(json.nodes);
         });
-        reader.readAsText(files[0]);
+        reader.readAsText(file);
     }
 
     $: if (files) {
@@ -30,7 +34,7 @@
         hasFile = true;
         console.log(files[0]);
 
-        readFile();
+        readFile(files[0]);
     }
 </script>
 
@@ -80,9 +84,42 @@
                 <JsonPreview {isDark} {json} />
             </div>
         {:else}
-            <div class="col-3 text-center">
-                <p class="fs-5 text-secondary">Waiting for a file...</p>
-                <img src={blank} alt="" class="img-fluid" />
+            <div class="col-4 text-center">
+                <img src={blank} alt="" class="img-fluid w-50" />
+                <p class="fs-5 text-secondary my-3">Waiting for a file...</p>
+                <div class="row row-cols-2 g-3">
+                    <div class="col">
+                        <button
+                            class="btn btn-outline-dark w-100"
+                            on:click={(e) => {
+                                hasFile = true;
+                                let blob = new Blob(
+                                    [JSON.stringify(Example_2)],
+                                    { type: "application/json" }
+                                );
+                                readFile(blob);
+                            }}
+                        >
+                            <!-- <i class="bi bi-file-earmark-arrow-up me-2"></i> -->
+                            <span>example2</span>
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button
+                            class="btn btn-outline-dark w-100"
+                            on:click={(e) => {
+                                hasFile = true;
+                                let blob = new Blob(
+                                    [JSON.stringify(Example_Empty)],
+                                    { type: "application/json" }
+                                );
+                                readFile(blob);
+                            }}
+                        >
+                            <span>example_empty</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         {/if}
     </div>
