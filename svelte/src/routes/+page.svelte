@@ -8,13 +8,12 @@
     // Components
     import Flowchart from "../components/flowchart.svelte";
     import JsonPreview from "../components/json_preview.svelte";
-    import Node from "../components/node.svelte";
     import ThemePicker from "../components/theme_picker.svelte";
 
     // Modules
     import JsonPath from "jsonpath";
     import { Validator } from "jsonschema";
-    var v = new Validator();
+    // var v = new Validator();
     // console.log(v.validate(4, {"type": "number"}));
 
 
@@ -143,7 +142,7 @@
                     <i class="bi bi-arrow-left-right"></i>
                     <i class="bi bi-3-square"></i>
                 </button>
-                <JsonPreview {$isDark} {json} />
+                <JsonPreview {json} />
             </div>
         {:else}
             <div class="col-4 text-center">
@@ -152,7 +151,7 @@
                 <div class="row row-cols-2 g-3">
                     <div class="col">
                         <button
-                            class="btn btn-outline-dark w-100"
+                            class={"btn w-100 " + ($isDark ? "btn-outline-light" : "btn-outline-dark")}
                             on:click={(e) => {
                                 hasFile = true;
                                 let blob = new Blob(
@@ -168,7 +167,7 @@
                     </div>
                     <div class="col">
                         <button
-                            class="btn btn-outline-dark w-100"
+                            class={"btn w-100 " + ($isDark ? "btn-outline-light" : "btn-outline-dark")}
                             on:click={(e) => {
                                 hasFile = true;
                                 let blob = new Blob(

@@ -1,6 +1,6 @@
 <script>
     import RecurseNode from "./recurse_node.svelte";
-    import { grabbed_node } from "../stores";
+    import { grabbed_node_id } from "../stores";
 
     export let nodes = [];
 

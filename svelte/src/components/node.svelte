@@ -1,6 +1,6 @@
 <script>
     import Status from "../components/status.svelte";
-    import { grabbed_node } from "../stores";
+    import { grabbed_node_id } from "../stores";
     import { createEventDispatcher, onDestroy } from "svelte";
     const dispatch = createEventDispatcher();
 
@@ -26,7 +26,6 @@
         e.dataTransfer.setDragImage(clone, 0, 0);
 
         e.dataTransfer.effectAllowed = "move";
-        e.dataTransfer.setData("text/plain", JSON.stringify(details));
         isBeingDragged = true;
     }
 
@@ -59,7 +58,6 @@
                 details.acronym
         );
 
-        details = JSON.parse(e.dataTransfer.getData("text/plain"));
         hasDraggable = false;
     }
 </script>
@@ -157,14 +155,6 @@
     .node.robot:hover {
         border-color: var(--bs-primary) !important;
         cursor: grab;
-    }
-
-    .no-drop {
-        cursor: no-drop;
-    }
-
-    .grabbing {
-        cursor: grabbing !important;
     }
 
     .node .timestamp {
