@@ -11,7 +11,6 @@
     import ThemePicker from "../components/theme_picker.svelte";
 
     // Modules
-    import JsonPath from "jsonpath";
     import { Validator } from "jsonschema";
     // var v = new Validator();
     // console.log(v.validate(4, {"type": "number"}));
@@ -19,74 +18,6 @@
 
     let hasFile = false;
     let files;
-    let json = {};
-
-    function getNodeById(node_id) {
-        // find node path by id
-        // todo
-        let node_path = JsonPath.paths($flowchart, "$..details")
-            .map((path) => {
-                return path.reduce((accumulator, current, index) => {
-                    return index == 0
-                        ? (accumulator = current)
-                        : (accumulator += "['" + current + "']");
-                });
-            })
-            .find((path) => JsonPath.query($flowchart, path)[0].id == node_id);
-
-        // get obj by path
-        return JsonPath.query($flowchart, node_path)[0];
-    }
-
-    function getNodeLocation(node_obj) {
-        let node_string = JSON.stringify(node_obj);
-        let index = JSON.stringify($flowchart).indexOf(node_string);
-
-        return {
-            start: index,
-            end: index + node_string.length,
-        };
-    }
-
-    function swapNodes(node1_id, node2_id) {
-
-        let node1 = getNodeById(node1_id);
-        let node1_location = getNodeLocation(node1);
-        let node2 = getNodeById(node2_id);
-        let node2_location = getNodeLocation(node2);
-
-        let first_node, last_node, first_location, last_location;
-
-        if (node1_location.start < node2_location.start) {
-            first_node = node1;
-            last_node = node2;
-            first_location = node1_location;
-            last_location = node2_location;
-        } else {
-            first_node = node2;
-            last_node = node1;
-            first_location = node2_location;
-            last_location = node1_location;
-        }
-
-        let flowchart_string = JSON.stringify($flowchart);
-
-        // there are 3 segments in this flowchart, 2 slices need to happen
-
-        // segment 1 ---- node ---- segment 2 ---- node ---- segment 3
-
-        // we need to slice this string in 3 strings, and add the nodes in reverse order
-
-    
-        let segment1 = flowchart_string.slice(0, first_location.start);
-        let segment2 = flowchart_string.slice(first_location.end, last_location.start);
-        let segment3 = flowchart_string.slice(last_location.end);
-
-        flowchart_string = segment1 + JSON.stringify(last_node) + segment2 + JSON.stringify(first_node) + segment3;
-
-        $flowchart = JSON.parse(flowchart_string)
-        
-    }
 
     function readFile(file) {
         const reader = new FileReader();
@@ -137,11 +68,6 @@
         {#if hasFile}
             <div class="col-11 d-flex flex-column align-items-center gap-3">
                 <Flowchart/>
-                <button class="btn btn-danger fs-4 px-3 d-flex gap-2  justify-content-center" on:click={e => {swapNodes("R1", "R3")}}>
-                    <i class="bi bi-1-square"></i>
-                    <i class="bi bi-arrow-left-right"></i>
-                    <i class="bi bi-3-square"></i>
-                </button>
                 <JsonPreview/>
             </div>
         {:else}
