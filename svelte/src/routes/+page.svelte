@@ -1,22 +1,22 @@
 <script>
+    // Files
     import blank from "$lib/blank.png";
     import Example_2 from "../../../examples/example2.json";
     import Example_Empty from "../../../examples/example_empty.json";
+    import { isDark } from "../stores";
 
+    // Components
     import Flowchart from "../components/flowchart.svelte";
     import JsonPreview from "../components/json_preview.svelte";
     import Node from "../components/node.svelte";
     import ThemePicker from "../components/theme_picker.svelte";
 
+    // Modules
     import JsonPath from "jsonpath";
     import { Validator } from "jsonschema";
     var v = new Validator();
     // console.log(v.validate(4, {"type": "number"}));
 
-    let isDark = false;
-    function themeChanged(newTheme) {
-        isDark = newTheme;
-    }
 
     let hasFile = false;
     let files;
@@ -24,6 +24,7 @@
 
     function getNodeById(node_id) {
         // find node path by id
+        // todo
         let node_path = JsonPath.paths(json, "$..details")
             .map((path) => {
                 return path.reduce((accumulator, current, index) => {
@@ -72,7 +73,9 @@
         let json_string = JSON.stringify(json);
 
         // there are 3 segments in this json, 2 slices need to happen
-        // segment 1 --s-- node --e-- segment 2 --s-- node --e-- segment 3
+
+        // segment 1 ---- node ---- segment 2 ---- node ---- segment 3
+
         // we need to slice this string in 3 strings, and add the nodes in reverse order
 
     
@@ -82,7 +85,6 @@
 
         json_string = segment1 + JSON.stringify(last_node) + segment2 + JSON.stringify(first_node) + segment3;
 
-        console.log(JSON.parse(json_string));
         json = JSON.parse(json_string)
         
     }
@@ -91,22 +93,6 @@
         const reader = new FileReader();
         reader.addEventListener("load", (e) => {
             json = JSON.parse(e.target.result);
-
-            // console.log(JsonPath.paths(json, "$..details"));
-
-            const r6_path = JsonPath.paths(json, "$..details")
-                .map((path) => {
-                    return path.reduce((accumulator, current, index) => {
-                        return index == 0
-                            ? (accumulator = current)
-                            : (accumulator += "['" + current + "']");
-                    });
-                })
-                .find((path) => JsonPath.query(json, path)[0].id == "R6");
-
-            const r6 = JsonPath.query(json, r6_path)[0];
-
-            console.log(r6);
         });
         reader.readAsText(file);
     }
@@ -119,13 +105,13 @@
     }
 </script>
 
-<div class={"container-fluid min-vh-100 " + (isDark ? "bg-dark" : "bg-white")}>
+<div class={"container-fluid min-vh-100 " + ($isDark ? "bg-dark" : "bg-white")}>
     <!-- Header -->
     <div class="row row-cols-1 row-cols-md-2 gy-2 align-items-center">
         <div class="col">
             <div
                 class={"display-4 py-3 text-center text-md-start " +
-                    (isDark ? "text-light" : "text-dark")}
+                    ($isDark ? "text-light" : "text-dark")}
             >
                 Json <i class="bi bi-arrow-right fs-1 text-primary" /> Flowchart
             </div>
@@ -136,7 +122,7 @@
             </label>
             <input
                 class={"form-control border " +
-                    (isDark
+                    ($isDark
                         ? "bg-black text-light border-secondary"
                         : "bg-white text-dark")}
                 type="file"
@@ -150,9 +136,14 @@
 
     <div class="row gx-4 mt-5 justify-content-center">
         {#if hasFile}
-            <div class="col-11">
+            <div class="col-11 d-flex flex-column align-items-center gap-3">
                 <Flowchart nodes={json.nodes} />
-                <JsonPreview {isDark} {json} />
+                <button class="btn btn-danger fs-4 px-3 d-flex gap-2  justify-content-center" on:click={e => {swapNodes("R1", "R3")}}>
+                    <i class="bi bi-1-square"></i>
+                    <i class="bi bi-arrow-left-right"></i>
+                    <i class="bi bi-3-square"></i>
+                </button>
+                <JsonPreview {$isDark} {json} />
             </div>
         {:else}
             <div class="col-4 text-center">
@@ -196,8 +187,4 @@
     </div>
 </div>
 
-<ThemePicker
-    on:theme_change={(e) => {
-        themeChanged(e.detail.newTheme);
-    }}
-/>
+<ThemePicker/>
