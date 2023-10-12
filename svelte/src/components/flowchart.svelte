@@ -7,9 +7,8 @@
     // os nodes são responsáveis por editarem o store "grabbed_node";
     // o flowchart apanha logo a info atualizada, mas não faz nada com esse update;
 
-    // 1. os nodes e lines têm um on:drop, que manda um dispatch com info de onde aconteceu o drop
-    // 2. esse drop navega até aos recurse_node, e eventualmente até ao flowchart
-    // 3. o flowchart então pega no grabbed node e insere-o no seu nodes
+    // 1. os nodes e lines têm um on:drop, que edita o store "drop_location"
+    // 3. quando o drop_location muda, o flowchart então pega no grabbed node e insere-o no seu nodes
     // 4. por reactividade, os recurse_nodes são todos atualizados, refrescando o flowchart por completo
 
     // nota: talvez seja appropriado o objeto json ser guardado num store tb,
