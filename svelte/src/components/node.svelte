@@ -1,6 +1,7 @@
 <script>
     import Status from "../components/status.svelte";
-    import { createEventDispatcher } from "svelte";
+    import { grabbed_node } from "../stores";
+    import { createEventDispatcher, onDestroy } from "svelte";
     const dispatch = createEventDispatcher();
 
     export let details = {};

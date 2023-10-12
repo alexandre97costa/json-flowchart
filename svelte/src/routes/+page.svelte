@@ -3,16 +3,20 @@
     import Example_2 from "../../../examples/example2.json";
     import Example_Empty from "../../../examples/example_empty.json";
 
-    import Node from "../components/node.svelte";
-    import RecurseNode from "../components/recurse_node.svelte";
+    import Flowchart from "../components/flowchart.svelte";
     import JsonPreview from "../components/json_preview.svelte";
+    import ThemePicker from "../components/theme_picker.svelte";
+
     import { Validator } from "jsonschema";
     var v = new Validator();
     // console.log(v.validate(4, {"type": "number"}));
 
     let isDark = false;
-    let hasFile = false;
+    function themeChanged(newTheme) {
+        isDark = newTheme;
+    }
 
+    let hasFile = false;
     let files;
     let json;
     let nodes = [];
@@ -49,7 +53,6 @@
             <label for="input" class="form-label text-secondary">
                 Upload a valid JSON to generate a flowchart
             </label>
-            <!-- <div class="input-group"> -->
             <input
                 class={"form-control border " +
                     (isDark
@@ -62,21 +65,12 @@
         </div>
     </div>
 
-    <!-- <hr class="mt-3 mb-4 text-secondary d-none d-md-block" /> -->
-
     <!-- Content -->
 
     <div class="row gx-4 mt-5 justify-content-center">
         {#if hasFile}
             <div class="col-11">
-                <!-- Flowchart -->
-                <div
-                    class="px-3 py-5 border rounded bg-white d-flex justify-content-start"
-                    style="max-width: 100%; overflow-x: auto;"
-                >
-                    <RecurseNode {nodes} start={true} />
-                </div>
-
+                <Flowchart {nodes} />
                 <JsonPreview {isDark} {json} />
             </div>
         {:else}
@@ -121,57 +115,8 @@
     </div>
 </div>
 
-<!-- Dark Mode -->
-<div class="fixed-bottom bottom-0 start-0 p-2">
-    <div class="dropdown" data-bs-theme="dark">
-        <button
-            class="btn dropdown-toggle border"
-            class:btn-dark={isDark}
-            class:border-secondary={isDark}
-            class:btn-light={!isDark}
-            type="button"
-            id="dropdownMenuButtonLight"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            title="Select a color mode"
-        >
-            {#if isDark}
-                <i class="bi bi-moon-stars-fill me-2" />
-            {:else}
-                <i class="bi bi-brightness-high-fill me-2" />
-            {/if}
-        </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButtonLight">
-            <li>
-                <button
-                    class="dropdown-item d-flex justify-content-between gap-3"
-                    class:active={!isDark}
-                    on:click={() => {
-                        isDark = false;
-                    }}
-                >
-                    <i class="bi bi-brightness-high-fill" />
-                    <span class="flex-fill text-start">Light</span>
-                    {#if !isDark}
-                        <i class="bi bi-check" />
-                    {/if}
-                </button>
-            </li>
-            <li>
-                <button
-                    class="dropdown-item d-flex justify-content-between gap-3"
-                    class:active={isDark}
-                    on:click={() => {
-                        isDark = true;
-                    }}
-                >
-                    <i class="bi bi-moon-stars-fill" />
-                    <span class="flex-fill text-start">Dark</span>
-                    {#if isDark}
-                        <i class="bi bi-check" />
-                    {/if}
-                </button>
-            </li>
-        </ul>
-    </div>
-</div>
+<ThemePicker
+    on:theme_change={(e) => {
+        themeChanged(e.detail.newTheme);
+    }}
+/>
