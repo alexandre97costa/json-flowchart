@@ -25,15 +25,28 @@
             <div
                 class={"accordion-body " + ($isDark ? "bg-black" : "bg-light")}
             >
-                <pre
-                    class={$isDark
-                        ? "bg-black text-success border-secondary"
-                        : "bg-light text-secondary"}>{JSON.stringify(
-                        $flowchart,
-                        null,
-                        4
-                    )} 
-        </pre>
+                <div class="row">
+                    <div class="col-6">
+                        <p class="fs-4 fw-bold">Robots</p>
+                        {#each $flowchart.plan.robots as robot}
+                            <pre>{JSON.stringify(robot, null, 4)}</pre>
+                        {/each}
+                    </div>
+                    <div class="col-6">
+                        <p class="fs-4 fw-bold">Connections</p>
+                        {#each $flowchart.plan.connections as connection}
+                            <pre>{JSON.stringify(connection)}</pre>
+                        {/each}
+                    </div>
+                    <div class="col-12">
+                        <p class="fs-4 fw-bold">Plan</p>
+                        <pre>{JSON.stringify(
+                                $flowchart,
+                                null,
+                                4
+                            )}</pre>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
