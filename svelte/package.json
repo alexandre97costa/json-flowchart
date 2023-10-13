@@ -6,7 +6,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"deploy": "pnpm run build && pnpm exec gh-pages -d docs"
+		"deploy": "pnpm run build && pnpm exec gh-pages -d build"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^2.0.3",
