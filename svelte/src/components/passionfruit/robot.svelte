@@ -33,16 +33,22 @@
     }
 </script>
 
-<div class="p-2 border rounded">
+<div class="p-2 fs-5 border rounded">
     {robot.name}
 </div>
 
 {#if next_robot_ids.length == 1}
     <Line />
+    {#each next_robot_ids as id}
+        <svelte:self {id} />
+    {/each}
 {:else if next_robot_ids.length > 1}
     <Line isCondition={true} />
+    <div class="d-flex flex-column gap-4">
+        {#each next_robot_ids as id}
+            <div class="d-flex">
+                <svelte:self {id} />
+            </div>
+        {/each}
+    </div>
 {/if}
-
-{#each next_robot_ids as id}
-    <svelte:self {id} />
-{/each}
