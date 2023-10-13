@@ -1,8 +1,6 @@
 <script>
     // Files
-    import blank from "$lib/blank.png";
-    import Example_2 from "../../../examples/example2.json";
-    import Example_Empty from "../../../examples/example_empty.json";
+    import { Blank, Example_2, Example_Empty } from "$lib";
     import { isDark, flowchart } from "../stores";
 
     // Components
@@ -71,7 +69,7 @@
             </div>
         {:else}
             <div class="col-4 text-center">
-                <img src={blank} alt="" class="img-fluid w-50" />
+                <img src={Blank} alt="" class="img-fluid w-50" />
                 <p class="fs-5 text-secondary my-3">Waiting for a file...</p>
                 <div class="row row-cols-2 g-3">
                     <div class="col">
