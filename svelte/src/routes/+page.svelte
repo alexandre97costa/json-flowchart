@@ -8,6 +8,7 @@
     import JsonPreview from "../components/json_preview.svelte";
     import ThemePicker from "../components/theme_picker.svelte";
     import FileInput from "../components/file_input.svelte";
+    import Flow from "../components/passionfruit/flow.svelte";
 </script>
 
 <div class={"container-fluid min-vh-100 " + ($isDark ? "bg-dark" : "bg-white")}>
@@ -28,7 +29,8 @@
     <div class="row gx-4 mt-5 justify-content-center">
         {#if $flowchart}
             <div class="col-11">
-                <Flowchart />
+                <!-- <Flowchart /> -->
+                <Flow />
                 <JsonPreview />
             </div>
         {:else}

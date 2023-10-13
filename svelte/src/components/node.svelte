@@ -26,7 +26,6 @@
         // svelte info
         isBeingDragged = true;
         $grabbed_node_id = details.id;
-
     }
 
     function dragend(e) {
@@ -39,9 +38,7 @@
         hasDraggable = true;
     }
 
-    function dragenter(e) {
-        
-    }
+    function dragenter(e) {}
 
     // when a draggable leaves this node
     function dragleave(e) {
@@ -56,8 +53,36 @@
     }
 </script>
 
-{#if details.type == "robot"}
-    <div class="position-relative" class:no-drop={isBeingDragged}>
+{#if details.type == "start"}
+    <div
+        class="node start bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
+    >
+        <span
+            class="fw-semibold fs-5 lh-1 text-dark"
+            class:py-1={!details.timestamp}>Start</span
+        >
+        {#if details.timestamp}
+            <span class="timestamp lh-1 text-secondary">
+                {details.timestamp}
+            </span>
+        {/if}
+    </div>
+{:else if details.type == "end"}
+    <div
+        class="node end bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
+    >
+        <span
+            class="fw-semibold fs-5 lh-1 text-dark"
+            class:py-1={!details.timestamp}>End</span
+        >
+        {#if details.timestamp}
+            <span class="timestamp lh-1 text-secondary">
+                {details.timestamp}
+            </span>
+        {/if}
+    </div>
+{:else}
+    <div class="position-relative" style="min-width: max-content;">
         <div
             id={details?.id}
             class="node robot bg-white border border-2 px-3 py-2 rounded d-flex align-items-center gap-3"
@@ -73,16 +98,19 @@
             tabindex="0"
         >
             <!-- <Status status={details.status} /> -->
-            <span class="fw-semibold fs-5 text-dark flex-fill"
-                >{details.acronym}</span
-            >
-            <span
-                class="environment text-uppercase text-success border border-success rounded px-1"
-                >{details.environment
-                    .split(" ")
-                    .map((word) => word[0])
-                    .join("")}</span
-            >
+            <span class="fw-semibold fs-5 text-dark flex-fill">
+                {details.name}
+            </span>
+            {#if details.environment}
+                <span
+                    class="environment text-uppercase text-success border border-success rounded px-1"
+                >
+                    {details.environment
+                        ?.split(" ")
+                        .map((word) => word[0])
+                        .join("") ?? "ENV"}
+                </span>
+            {/if}
         </div>
 
         <div
@@ -108,42 +136,11 @@
             </div>
         </div>
     </div>
-{:else if details.type == "end"}
-    <!-- Desenha um end -->
-    <div
-        class="node end bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
-    >
-        <span
-            class="fw-semibold fs-5 lh-1 text-dark"
-            class:py-1={!details.timestamp}>End</span
-        >
-        {#if details.timestamp}
-            <span class="timestamp lh-1 text-secondary">
-                {details.timestamp}
-            </span>
-        {/if}
-    </div>
-{:else}
-    <!-- Desenha um start -->
-    <div
-        class="node start bg-white border px-3 py-2 rounded d-flex flex-column align-items-start gap-1"
-    >
-        <span
-            class="fw-semibold fs-5 lh-1 text-dark"
-            class:py-1={!details.timestamp}>Start</span
-        >
-        {#if details.timestamp}
-            <span class="timestamp lh-1 text-secondary">
-                {details.timestamp}
-            </span>
-        {/if}
-    </div>
 {/if}
 
 <style>
     .node {
         min-width: 180px;
-        max-width: 200px;
     }
 
     .node.robot:hover {

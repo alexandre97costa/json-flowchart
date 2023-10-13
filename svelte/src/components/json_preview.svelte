@@ -18,7 +18,7 @@
         </h2>
         <div
             id="collapseOne"
-            class="accordion-collapse collapse"
+            class="accordion-collapse collapse show"
             aria-labelledby="headingOne"
             data-bs-parent="#accordionExample"
         >
