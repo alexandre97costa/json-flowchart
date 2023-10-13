@@ -15,7 +15,6 @@
     // var v = new Validator();
     // console.log(v.validate(4, {"type": "number"}));
 
-
     let hasFile = false;
     let files;
 
@@ -67,8 +66,8 @@
     <div class="row gx-4 mt-5 justify-content-center">
         {#if hasFile}
             <div class="col-11">
-                <Flowchart/>
-                <JsonPreview/>
+                <Flowchart />
+                <JsonPreview />
             </div>
         {:else}
             <div class="col-4 text-center">
@@ -77,7 +76,10 @@
                 <div class="row row-cols-2 g-3">
                     <div class="col">
                         <button
-                            class={"btn w-100 " + ($isDark ? "btn-outline-light" : "btn-outline-dark")}
+                            class={"btn w-100 " +
+                                ($isDark
+                                    ? "btn-outline-light"
+                                    : "btn-outline-dark")}
                             on:click={(e) => {
                                 hasFile = true;
                                 let blob = new Blob(
@@ -93,7 +95,10 @@
                     </div>
                     <div class="col">
                         <button
-                            class={"btn w-100 " + ($isDark ? "btn-outline-light" : "btn-outline-dark")}
+                            class={"btn w-100 " +
+                                ($isDark
+                                    ? "btn-outline-light"
+                                    : "btn-outline-dark")}
                             on:click={(e) => {
                                 hasFile = true;
                                 let blob = new Blob(
@@ -112,4 +117,4 @@
     </div>
 </div>
 
-<ThemePicker/>
+<ThemePicker />
