@@ -1,0 +1,33 @@
+{
+    "plan": {
+        "robots": {
+            "R1": {
+                "name": "🍆 Eggplant",
+                "environement": "Quality Assurance Portugal"
+            },
+            "R2": {
+                "name": "🍓 Strawberry",
+                "environement": "Quality Assurance Portugal"
+            },
+            "R3": {
+                "name": "🍊 Orange",
+                "environement": "Quality Assurance Portugal"
+            },
+            "R4": {
+                "name": "🍌 Banana",
+                "environement": "Quality Assurance Portugal"
+            },
+            "R5": {
+                "name": "🥝 Kiwi",
+                "environement": "Quality Assurance Portugal"
+            }
+        },
+        "connections": {
+            "R1": {"start": 1, "end": 2},
+            "R2": {"start": 2, "end": 3},
+            "R3": {"start": 3, "end": 4},
+            "R4": {"start": 4, "end": 5},
+            "R5": {"start": 4, "end": 6}
+        }
+    }
+}
