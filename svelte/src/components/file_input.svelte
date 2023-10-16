@@ -14,7 +14,9 @@
         if (!!$flowchart) {
             let validation = v.validate($flowchart, Schema_Flowchart);
             
-            console.log(validation);
+            if (validation.errors.length) {
+                console.table(validation.errors, ["stack"]);
+            }
             valid = validation.valid;
         }
     }
@@ -27,7 +29,7 @@
         reader.readAsText(file);
     }
 
-    $: if (files) {
+    $: if (files) {   
         // 'files' is of type 'FileList', not an Array
         // https://developer.mozilla.org/en-US/docs/Web/API/FileList
         readFile(files[0]);

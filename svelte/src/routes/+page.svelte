@@ -10,7 +10,7 @@
     import Flow from "../components/passionfruit/flow.svelte";
 </script>
 
-<div class={"container-fluid min-vh-100 " + ($isDark ? "bg-dark" : "bg-white")}>
+<div class={"container-fluid min-vh-100 pb-5 " + ($isDark ? "bg-dark" : "bg-white")}>
     <!-- Header -->
     <div class="row row-cols-1 row-cols-md-2 gy-2 align-items-center">
         <div class="col">

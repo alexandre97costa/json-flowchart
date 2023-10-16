@@ -4,32 +4,27 @@
             {
                 "id": "R1",
                 "name": "🍆 Eggplant",
-                "acronym": "R1",
-                "environement": "Quality Assurance Portugal"
+                "acronym": "R1"
             },
             {
                 "id": "R2",
                 "name": "🍓 Strawberry",
-                "acronym": "R2",
-                "environement": "Quality Assurance Portugal"
+                "acronym": "R2"
             },
             {
                 "id": "R3",
                 "name": "🍊 Orange",
-                "acronym": "R3",
-                "environement": "Quality Assurance Portugal"
+                "acronym": "R3"
             },
             {
                 "id": "R4",
                 "name": "🍌 Banana",
-                "acronym": "R4",
-                "environement": "Quality Assurance Portugal"
+                "acronym": "R4"
             },
             {
                 "id": "R5",
                 "name": "🥝 Kiwi",
-                "acronym": "R5",
-                "environement": "Quality Assurance Portugal"
+                "acronym": "R5"
             }
         ],
         "connections": [

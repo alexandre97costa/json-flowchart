@@ -38,7 +38,7 @@
                             <pre>{JSON.stringify(connection)}</pre>
                         {/each}
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 d-none">
                         <p class="fs-4 fw-bold">Plan</p>
                         <pre>{JSON.stringify(
                                 $flowchart,

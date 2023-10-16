@@ -6,22 +6,14 @@
     let first_robot_id = "";
 
     $: {
-        // get min start
         let minStart = Math.min(
-            ...JsonPath.query($flowchart, "$.plan.connections[*][1]")
+            ...JsonPath.query($flowchart, "$.plan.connections[*].start")
         );
+        
         first_robot_id = JsonPath.query(
             $flowchart,
-            "$.plan.connections[?(@[1]==" + minStart + ")][0]"
+            "$.plan.connections[?(@.start==" + minStart + ")].id"
         )[0];
-
-        // $flowchart.plan.connections.forEach(connection => {
-        //     // Json path para saber que robot tem o start == 99
-        //     // $.plan.connections[?(@[1]==99)][0]
-        //     // output: [ "R4", "R5" ]
-
-        //     // Biggest start: Math.max -> $.plan.connections[*][1]
-        // });
     }
 </script>
 

@@ -21,14 +21,14 @@
         // from the id, retrieve YOUR information from connections
         connection = JsonPath.query(
             $flowchart,
-            '$.plan.connections[?(@[0]=="' + id + '")]'
+            '$.plan.connections[?(@.id=="' + id + '")]'
         )[0];
         console.log(connection);
 
-        // from your connection[2], find which robots have your start as end. (only need id)
+        // from your connection[2], find which robots have THEIR start as YOUR end. (only need id)
         next_robot_ids = JsonPath.query(
             $flowchart,
-            "$.plan.connections[?(@[1]==" + connection[2] + ")][0]"
+            "$.plan.connections[?(@.start==" + connection.end + ")].id"
         );
     }
 </script>
