@@ -1,0 +1,45 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "$id": "/Flowchart",
+    "$comment": "For passionfruit_v2",
+    "title": "Flowchart",
+    "description": "A file that describes a multi-dimensional flow of execution.",
+    "type": "object",
+    "properties": {
+        "plan": {
+            "description": "A global wrapper of robots, connections, and other optional data",
+            "type": "object",
+            "properties": {
+                "robots": {
+                    "type": "array",
+                    "items": {
+                        "description": "A robot object",
+                        "$ref": "/Robot"
+                    }
+                },
+                "connections": {
+                    "type": "array",
+                    "items": {
+                        "description": "A connection object",
+                        "$ref": "/Connection"
+                    }
+                },
+                "plan_data": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "required": [
+                "robots",
+                "connections"
+            ]
+        }
+    },
+    "required": [
+        "plan"
+    ]
+}

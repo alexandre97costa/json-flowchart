@@ -1,7 +1,23 @@
 <script>
     import { isDark, flowchart } from "../stores";
+    import { Schema_Flowchart, Schema_Robot, Schema_Connection } from "$lib";
+    import { Validator } from "jsonschema";
+
+    let v = new Validator();
+    v.addSchema(Schema_Robot, "/Robot");
+    v.addSchema(Schema_Connection, "/Connection");
 
     let files;
+    let valid = null;
+
+    $: {
+        if (!!$flowchart) {
+            let validation = v.validate($flowchart, Schema_Flowchart);
+            
+            console.log(validation);
+            valid = validation.valid;
+        }
+    }
 
     function readFile(file) {
         const reader = new FileReader();
@@ -19,14 +35,10 @@
 </script>
 
 <div class="col">
-    <label for="input" class="form-label text-secondary">
-        Upload a valid JSON to generate a flowchart
-    </label>
     <input
-        class={"form-control border " +
-            ($isDark
-                ? "bg-black text-light border-secondary"
-                : "bg-white text-dark")}
+        class={"form-control border bg-opacity-10 " +
+            ($isDark ? "text-light border-secondary " : "text-dark ") +
+            (files ? (valid ? "bg-success " : "bg-danger ") : "bg-white")}
         type="file"
         id="input"
         bind:files

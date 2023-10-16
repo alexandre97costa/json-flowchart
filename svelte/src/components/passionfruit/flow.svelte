@@ -1,6 +1,6 @@
 <script>
     import JsonPath from "jsonpath";
-    import { flowchart, maxStart } from "../../stores";
+    import { flowchart } from "../../stores";
     import Robot from "./robot.svelte";
 
     let first_robot_id = "";

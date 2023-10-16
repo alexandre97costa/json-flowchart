@@ -1,10 +1,9 @@
 <script>
     // Files
-    import { Blank, Example_2, Example_Empty, passionfruit } from "$lib";
+    import { passionfruit } from "$lib";
     import { isDark, flowchart } from "../stores";
 
     // Components
-    import Flowchart from "../components/flowchart.svelte";
     import JsonPreview from "../components/json_preview.svelte";
     import ThemePicker from "../components/theme_picker.svelte";
     import FileInput from "../components/file_input.svelte";

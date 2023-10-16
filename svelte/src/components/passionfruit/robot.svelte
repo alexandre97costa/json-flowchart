@@ -1,6 +1,6 @@
 <script>
     import JsonPath from "jsonpath";
-    import { flowchart, maxStart } from "../../stores";
+    import { flowchart } from "../../stores";
     import Line from "../line.svelte";
 
     export let id;

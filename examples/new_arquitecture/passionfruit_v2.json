@@ -1,33 +1,63 @@
 {
     "plan": {
-        "robots": {
-            "R1": {
+        "robots": [
+            {
+                "id": "R1",
                 "name": "🍆 Eggplant",
+                "acronym": "R1",
                 "environement": "Quality Assurance Portugal"
             },
-            "R2": {
+            {
+                "id": "R2",
                 "name": "🍓 Strawberry",
+                "acronym": "R2",
                 "environement": "Quality Assurance Portugal"
             },
-            "R3": {
+            {
+                "id": "R3",
                 "name": "🍊 Orange",
+                "acronym": "R3",
                 "environement": "Quality Assurance Portugal"
             },
-            "R4": {
+            {
+                "id": "R4",
                 "name": "🍌 Banana",
+                "acronym": "R4",
                 "environement": "Quality Assurance Portugal"
             },
-            "R5": {
+            {
+                "id": "R5",
                 "name": "🥝 Kiwi",
+                "acronym": "R5",
                 "environement": "Quality Assurance Portugal"
             }
-        },
-        "connections": {
-            "R1": {"start": 1, "end": 2},
-            "R2": {"start": 2, "end": 3},
-            "R3": {"start": 3, "end": 4},
-            "R4": {"start": 4, "end": 5},
-            "R5": {"start": 4, "end": 6}
-        }
+        ],
+        "connections": [
+            {
+                "id": "R1",
+                "start": 1,
+                "end": 2
+            },
+            {
+                "id": "R2",
+                "start": 2,
+                "end": 3
+            },
+            {
+                "id": "R3",
+                "start": 3,
+                "end": 4
+            },
+            {
+                "id": "R4",
+                "start": 4,
+                "end": 5
+            },
+            {
+                "id": "R5",
+                "start": 4,
+                "end": 6
+            }
+        ]
     }
 }
