@@ -19,7 +19,7 @@
 
 {#if first_robot_id}
     <div
-        class="px-3 py-5 border border-primary rounded bg-white d-flex justify-content-center align-items-start"
+        class="px-3 py-5 border border-primary rounded d-flex justify-content-center align-items-start"
         style="max-width: 100%; overflow-x: auto;"
     >
         <Robot id={first_robot_id} />

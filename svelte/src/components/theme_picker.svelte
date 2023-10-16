@@ -1,14 +1,23 @@
 <script>
     import { isDark } from "../stores";
+    import { browser } from "$app/environment";
+
+    $: {
+        if (browser) {
+            let html = document.documentElement;
+            if ($isDark) {
+                html.setAttribute("data-bs-theme", "dark");
+            } else {
+                html.setAttribute("data-bs-theme", "light");
+            }
+        }
+    }
 </script>
 
 <div class="fixed-bottom bottom-0 start-0 p-2">
     <div class="dropdown" data-bs-theme="dark">
         <button
-            class="btn dropdown-toggle border"
-            class:btn-dark={$isDark}
-            class:border-secondary={$isDark}
-            class:btn-light={!$isDark}
+            class="btn btn-secondary dropdown-toggle border"
             type="button"
             id="dropdownMenuButtonLight"
             data-bs-toggle="dropdown"
@@ -32,7 +41,7 @@
                 >
                     <i class="bi bi-brightness-high-fill" />
                     <span class="flex-fill text-start">Light</span>
-                    {#if !isDark}
+                    {#if !$isDark}
                         <i class="bi bi-check" />
                     {/if}
                 </button>

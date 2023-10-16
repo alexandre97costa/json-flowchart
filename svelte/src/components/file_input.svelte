@@ -1,5 +1,5 @@
 <script>
-    import { isDark, flowchart } from "../stores";
+    import { flowchart, isvalid_flowchart, schema_errors } from "../stores";
     import { Schema_Flowchart, Schema_Robot, Schema_Connection } from "$lib";
     import { Validator } from "jsonschema";
 
@@ -8,28 +8,39 @@
     v.addSchema(Schema_Connection, "/Connection");
 
     let files;
-    let valid = null;
 
     $: {
         if (!!$flowchart) {
             let validation = v.validate($flowchart, Schema_Flowchart);
-            
-            if (validation.errors.length) {
-                console.table(validation.errors, ["stack"]);
+            if (!!validation.errors.length) {
+                $schema_errors = validation.errors;
+            } else {
+                $schema_errors = [];
+                $isvalid_flowchart = validation.valid;
             }
-            valid = validation.valid;
         }
     }
 
     function readFile(file) {
         const reader = new FileReader();
         reader.addEventListener("load", (e) => {
-            $flowchart = JSON.parse(e.target.result);
+            let validation = v.validate(
+                JSON.parse(e.target.result),
+                Schema_Flowchart
+            );
+
+            if (!!validation.errors.length) {
+                $schema_errors = validation.errors;
+            } else {
+                $flowchart = JSON.parse(e.target.result);
+                $schema_errors = new Array();
+            }
+            $isvalid_flowchart = validation.valid;
         });
         reader.readAsText(file);
     }
 
-    $: if (files) {   
+    $: if (files) {
         // 'files' is of type 'FileList', not an Array
         // https://developer.mozilla.org/en-US/docs/Web/API/FileList
         readFile(files[0]);
@@ -37,12 +48,27 @@
 </script>
 
 <div class="col">
-    <input
-        class={"form-control border bg-opacity-10 " +
-            ($isDark ? "text-light border-secondary " : "text-dark ") +
-            (files ? (valid ? "bg-success " : "bg-danger ") : "bg-white")}
-        type="file"
-        id="input"
-        bind:files
-    />
+    <div class="input-group">
+        <input
+            class="form-control border bg-opacity-25"
+            type="file"
+            id="input"
+            bind:files
+        />
+        {#if files}
+            {#if $isvalid_flowchart}
+                <i
+                    title="This file is valid"
+                    role="button"
+                    class="fs-5 input-group-text bi bi-check-lg text-success bg-success-subtle"
+                />
+            {:else}
+                <i
+                    title="This file is not valid"
+                    role="button"
+                    class="fs-5 input-group-text bi bi-exclamation-lg text-danger bg-danger-subtle"
+                />
+            {/if}
+        {/if}
+    </div>
 </div>

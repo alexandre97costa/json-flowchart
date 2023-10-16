@@ -2,7 +2,7 @@
 import Blank from "./blank.png"
 import Example_2 from "../../../examples/example2.json"
 import Example_Empty from "../../../examples/example_empty.json"
-import passionfruit from "../../../examples/new_arquitecture/passionfruit.json"
+import pineapple from "../../../examples/new_arquitecture/pineapple.json"
 
 // Schemas
 import Schema_Flowchart from "./schemas/flowchart.schema.json"
@@ -14,7 +14,7 @@ export {
     Blank,
     Example_2,
     Example_Empty,
-    passionfruit,
+    pineapple,
 
     Schema_Flowchart,
     Schema_Robot,
