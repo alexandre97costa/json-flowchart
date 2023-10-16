@@ -9,23 +9,19 @@
     let next_robot_ids = [];
 
     $: {
-        console.log(id);
-
         // from the id, retrieve YOUR information from robots
         robot = JsonPath.query(
             $flowchart,
             '$.plan.robots[?(@.id=="' + id + '")]'
         )[0];
-        console.log(robot);
 
         // from the id, retrieve YOUR information from connections
         connection = JsonPath.query(
             $flowchart,
             '$.plan.connections[?(@.id=="' + id + '")]'
         )[0];
-        console.log(connection);
 
-        // from your connection[2], find which robots have THEIR start as YOUR end. (only need id)
+        // from your connection.end, find which robots have THEIR start as YOUR end. (only need id)
         next_robot_ids = JsonPath.query(
             $flowchart,
             "$.plan.connections[?(@.start==" + connection.end + ")].id"
