@@ -5,11 +5,9 @@
     $: {
         if (browser) {
             let html = document.documentElement;
-            if ($isDark) {
-                html.setAttribute("data-bs-theme", "dark");
-            } else {
-                html.setAttribute("data-bs-theme", "light");
-            }
+            
+            localStorage.setItem("theme", $isDark ? "dark" : "light");
+            html.setAttribute("data-bs-theme", localStorage.getItem("theme"));
         }
     }
 </script>

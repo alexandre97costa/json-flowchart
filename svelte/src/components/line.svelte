@@ -48,7 +48,7 @@
             on:click={(e) => add()}
         >
             <i
-                class="bi bi-plus-circle fs-3 bg-white lh-1 rounded-circle text-primary"
+                class="bi bi-plus-circle fs-3 bg-light-subtle lh-1 rounded-circle text-primary"
             />
         </button>
     {/if}
@@ -73,6 +73,7 @@
 <style>
     .line-container {
         width: 80px;
+        min-width: max-content;
         position: relative;
         /* background-color: rgba(255, 192, 203, 0.7); */
     }
