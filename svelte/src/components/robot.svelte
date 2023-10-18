@@ -3,28 +3,39 @@
     import { flowchart } from "../stores";
     import Line from "./line.svelte";
 
-    export let id = "";
+    export let robot = {};
     export let type = "robot";
-    let robot;
-    let next_robot_ids = [];
+
+    let isCondition = !!robot?.branches ?? false;
+    let next_robots = [];
 
     $: {
-        if (id && type == "robot") {
-            // from the id, retrieve YOUR information from robots
-            robot = JsonPath.query(
+        if (type == "robot") {
+            // find next robots info
+            // all robots with my ID as ParentID
+            next_robots = JsonPath.query(
                 $flowchart,
-                '$.plan.robots[?(@.id=="' + id + '")]'
-            )[0];
-
+                '$.plan.robots[?(@.parentID=="' + robot.id + '")]'
+            );
         }
     }
 </script>
 
 <!-- * Render this robot * -->
 {#if type == "start"}
-    <div class="robot start p-2 fs-5 border rounded" style="min-width: max-content;">Start</div>
+    <div
+        class="robot start p-2 fs-5 border rounded"
+        style="min-width: max-content;"
+    >
+        Start
+    </div>
 {:else if type == "end"}
-    <div class="robot end p-2 fs-5 border rounded" style="min-width: max-content;">End</div>
+    <div
+        class="robot end p-2 fs-5 border rounded"
+        style="min-width: max-content;"
+    >
+        End
+    </div>
 {:else}
     <div class="robot p-2 fs-5 border rounded" style="min-width: max-content;">
         {robot.name}
@@ -33,18 +44,18 @@
 
 <!-- * Render next robots * -->
 {#if type == "robot"}
-    {#if next_robot_ids.length == 1}
-        <Line />
-        <svelte:self id={next_robot_ids[0]} />
-    {:else if next_robot_ids.length > 1}
-        <Line isCondition />
+    {#if next_robots.length > 1}
+        <Line {isCondition} />
         <div class="grid-2">
-            {#each next_robot_ids as id}
+            {#each next_robots as next_robot}
                 <div class="d-flex">
-                    <svelte:self {id} />
+                    <svelte:self robot={next_robot} />
                 </div>
             {/each}
         </div>
+    {:else if next_robots.length == 1}
+        <Line {isCondition} />
+        <svelte:self robot={next_robots[0]} />
     {:else}
         <Line />
         <svelte:self type="end" />
@@ -52,7 +63,6 @@
 {/if}
 
 <style>
-
     .robot {
         max-width: 200px;
     }

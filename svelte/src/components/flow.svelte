@@ -8,6 +8,8 @@
     import { Validator } from "jsonschema";
     let v = new Validator();
 
+    let first_robot = JsonPath.query($flowchart, "$.plan.robots[?(@.parentID==null)]")[0]
+
     $: {
     }
 
@@ -47,72 +49,70 @@
     };
 </script>
 
-{#if first_robot_id}
-    <div
-        class="px-3 py-5 border border-primary rounded d-flex justify-content-start align-items-start"
-        style="overflow-x: auto;"
-    >
-        <div class="d-flex align-items-start">
-            <Robot type="start" />
-            <Line />
-            <Robot id={first_robot_id} />
-        </div>
+<div
+    class="px-3 py-5 border border-primary rounded d-flex justify-content-start align-items-start"
+    style="overflow-x: auto;"
+>
+    <div class="d-flex align-items-start">
+        <Robot type="start" />
+        <Line />
+        <Robot robot={first_robot} />
     </div>
+</div>
 
-    <!-- Buttons -->
-    <div class="d-flex gap-3 my-3">
-        <!-- Add -->
-        <button
-            class="btn btn-outline-primary d-flex align-items-center gap-3 fw-bold font-monospace"
-            on:click={() => {
-                let robot = {
-                    id: "R7",
-                    name: "🍑 Peach",
-                    acronym: "R7",
-                };
-                plan.add(robot);
-            }}
-        >
-            <span class="badge bg-primary">
-                <i class="bi bi-plus-lg fs-4" />
-            </span>
-            <span> add robot </span>
-        </button>
-        <!-- Delete -->
-        <button
-            class="btn btn-outline-primary d-flex align-items-center gap-3 fw-bold font-monospace"
-            on:click={() => {
-                plan.delete("R5");
-            }}
-        >
-            <span class="badge bg-primary">
-                <i class="bi bi-trash3 fs-4" />
-            </span>
-            <span> delete robot </span>
-        </button>
-        <!-- Swap -->
-        <button
-            class="btn btn-outline-primary d-flex align-items-center gap-3 fw-bold font-monospace"
-            on:click={() => {
-                plan.swap("R2", "R3");
-            }}
-        >
-            <span class="badge bg-primary">
-                <i class="bi bi-shuffle fs-4" />
-            </span>
-            <span> swap robots </span>
-        </button>
-        <!-- Move -->
-        <button
-            class="btn btn-outline-primary d-flex align-items-center gap-3 fw-bold font-monospace"
-            on:click={() => {
-                plan.move("R4");
-            }}
-        >
-            <span class="badge bg-primary">
-                <i class="bi bi-arrows-move fs-4" />
-            </span>
-            <span> move robot </span>
-        </button>
-    </div>
-{/if}
+<!-- Buttons -->
+<div class="d-flex gap-3 my-3">
+    <!-- Add -->
+    <button
+        class="btn btn-outline-primary d-flex align-items-center gap-3 fw-bold font-monospace"
+        on:click={() => {
+            let robot = {
+                id: "R7",
+                name: "🍑 Peach",
+                acronym: "R7",
+            };
+            plan.add(robot);
+        }}
+    >
+        <span class="badge bg-primary">
+            <i class="bi bi-plus-lg fs-4" />
+        </span>
+        <span> add robot </span>
+    </button>
+    <!-- Delete -->
+    <button
+        class="btn btn-outline-primary d-flex align-items-center gap-3 fw-bold font-monospace"
+        on:click={() => {
+            plan.delete("R5");
+        }}
+    >
+        <span class="badge bg-primary">
+            <i class="bi bi-trash3 fs-4" />
+        </span>
+        <span> delete robot </span>
+    </button>
+    <!-- Swap -->
+    <button
+        class="btn btn-outline-primary d-flex align-items-center gap-3 fw-bold font-monospace"
+        on:click={() => {
+            plan.swap("R2", "R3");
+        }}
+    >
+        <span class="badge bg-primary">
+            <i class="bi bi-shuffle fs-4" />
+        </span>
+        <span> swap robots </span>
+    </button>
+    <!-- Move -->
+    <button
+        class="btn btn-outline-primary d-flex align-items-center gap-3 fw-bold font-monospace"
+        on:click={() => {
+            plan.move("R4");
+        }}
+    >
+        <span class="badge bg-primary">
+            <i class="bi bi-arrows-move fs-4" />
+        </span>
+        <span> move robot </span>
+    </button>
+</div>
