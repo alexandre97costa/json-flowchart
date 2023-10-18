@@ -1,0 +1,38 @@
+{
+    "plan": {
+        "details": {
+            "isEditing": true,
+            "comment": "add more plan details as needed"
+        },
+        "robots": [
+            {
+                "id": "R1",
+                "parentID": null,
+                "name": "Robot 1"
+            },
+            {
+                "id": "R2",
+                "parentID": "R1",
+                "name": "Robot 2"
+            },
+            {
+                "id": "R3",
+                "parentID": "R2",
+                "branches": 2,
+                "name": "Robot 3"
+            },
+            {
+                "id": "R4",
+                "parentID": "R3",
+                "conditionNumber": 1,
+                "name": "Robot 4"
+            },
+            {
+                "id": "R5",
+                "parentID": "R3",
+                "conditionNumber": 2,
+                "name": "Robot 5"
+            }
+        ]
+    }
+}

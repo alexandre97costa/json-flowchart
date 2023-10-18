@@ -1,17 +1,16 @@
 <script>
     import { flowchart, isvalid_flowchart, schema_errors } from "../stores";
-    import { Schema_Flowchart, Schema_Robot, Schema_Connection } from "$lib";
+    import { flowchart_schema, robot_schema } from "$lib";
     import { Validator } from "jsonschema";
 
     let v = new Validator();
-    v.addSchema(Schema_Robot, "/Robot");
-    v.addSchema(Schema_Connection, "/Connection");
+    v.addSchema(robot_schema, "/Robot");
 
     let files;
 
     $: {
         if (!!$flowchart) {
-            let validation = v.validate($flowchart, Schema_Flowchart);
+            let validation = v.validate($flowchart, flowchart_schema);
             if (!!validation.errors.length) {
                 $schema_errors = validation.errors;
             } else {
@@ -26,7 +25,7 @@
         reader.addEventListener("load", (e) => {
             let validation = v.validate(
                 JSON.parse(e.target.result),
-                Schema_Flowchart
+                flowchart_schema
             );
 
             if (!!validation.errors.length) {

@@ -1,6 +1,6 @@
 <script>
     // Files
-    import { pineapple } from "$lib";
+    import { example_1 } from "$lib";
     import {
         isDark,
         flowchart,
@@ -12,7 +12,8 @@
     import JsonPreview from "../components/json_preview.svelte";
     import ThemePicker from "../components/theme_picker.svelte";
     import FileInput from "../components/file_input.svelte";
-    import Flow from "../components/passionfruit/flow.svelte";
+    import Flow from "../components/flow.svelte";
+
 </script>
 
 <div class={"container-fluid min-vh-100 pb-5 "}>
@@ -49,12 +50,10 @@
                     class="btn btn-outline-warning w-100 d-flex align-items-center justify-content-between"
                     class:text-dark={!$isDark}
                     on:click={(e) => {
-                        $flowchart = pineapple;
+                        $flowchart = example_1;
                     }}
                 >
-                    <span class="font-monospace fw-bold">pineapple</span>
-                    <span class="font-monospace fw-bold">🍍</span>
-                    <!-- <span class="badge text-bg-dark">v2</span> -->
+                    <span class="font-monospace fw-bold">example_1</span>
                 </button>
             </div>
         {/if}

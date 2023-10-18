@@ -1,13 +1,13 @@
 {
     "$schema": "https://json-schema.org/draft-07/schema",
     "$id": "/Flowchart",
-    "$comment": "For passionfruit_v2",
+    "$comment": "For the papaya branch",
     "title": "Flowchart",
     "description": "A file that describes a multi-dimensional flow of execution.",
     "type": "object",
     "properties": {
         "plan": {
-            "description": "A global wrapper of robots, connections, and other optional data",
+            "description": "A global wrapper of robots and other optional data",
             "type": "object",
             "properties": {
                 "robots": {
@@ -17,25 +17,17 @@
                         "$ref": "/Robot"
                     }
                 },
-                "connections": {
-                    "type": "array",
-                    "items": {
-                        "description": "A connection object",
-                        "$ref": "/Connection"
-                    }
-                },
-                "plan_data": {
+                "details": {
                     "type": "object",
                     "properties": {
-                        "name": {
-                            "type": "string"
+                        "isEditing": {
+                            "type": "boolean"
                         }
                     }
                 }
             },
             "required": [
-                "robots",
-                "connections"
+                "robots"
             ]
         }
     },

@@ -1,12 +1,11 @@
 <script>
     import JsonPath from "jsonpath";
-    import { flowchart } from "../../stores";
-    import Line from "../line.svelte";
+    import { flowchart } from "../stores";
+    import Line from "./line.svelte";
 
     export let id = "";
     export let type = "robot";
     let robot;
-    let connection;
     let next_robot_ids = [];
 
     $: {
@@ -17,17 +16,6 @@
                 '$.plan.robots[?(@.id=="' + id + '")]'
             )[0];
 
-            // from the id, retrieve YOUR information from connections
-            connection = JsonPath.query(
-                $flowchart,
-                '$.plan.connections[?(@.id=="' + id + '")]'
-            )[0];
-
-            // from your connection.end, find which robots have THEIR start as YOUR end. (only need id)
-            next_robot_ids = JsonPath.query(
-                $flowchart,
-                "$.plan.connections[?(@.start==" + connection.end + ")].id"
-            );
         }
     }
 </script>

@@ -1,14 +1,27 @@
 {
     "$schema": "https://json-schema.org/draft-07/schema",
     "$id": "/Robot",
-    "$comment": "For passionfruit_v2",
+    "$comment": "For the papaya branch",
     "title": "Robot",
     "description": "A robot schema to be referenced by flowchart.schema",
     "type": "object",
     "properties": {
         "id": {
-            "type": "string",
+            "type": ["string", "null"],
+            "description": "Needs to start by a letter, and can only contain ASCII chars (excluding spaces)",
+            "$comment": "Test this pattern here: https://regexr.com/7lr7l",
             "pattern": "^[\\w]{1}[\\w\\d\\-\\_]*$"
+        },
+        "parentID": {
+            "$ref": "#/properties/id" 
+        },
+        "branches" : {
+            "type": "integer",
+            "minimum": 1
+        },
+        "conditionNumber": {
+            "type": "integer",
+            "minimum": 1
         },
         "name": {
             "type": "string"
@@ -21,19 +34,11 @@
         },
         "status": {
             "type": "string"
-        },
-        "condition": {
-            "type": "object",
-            "properties": {
-                "definition": {
-                    "type": "string"
-                }
-            }
         }
     },
     "required": [
         "id",
-        "name",
-        "acronym"
+        "parentID",
+        "name"
     ]
 }
