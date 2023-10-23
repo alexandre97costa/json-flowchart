@@ -34,7 +34,7 @@
 </script>
 
 <div
-    class={"line-container " + (isCondition ? "height-2" : "height-1")}
+    class={"line-container "}
     role="treegrid"
     tabindex="0"
     on:dragover={(e) => dragover(e)}
@@ -44,7 +44,7 @@
     <div class="line" />
     {#if !isCondition}
         <button
-            class="add invisible position-absolute w-100 h-100 d-flex justify-content-center align-items-center border border-0 bg-transparent"
+            class="add invisible position-absolute w-100 d-flex justify-content-center align-items-center border border-0 bg-transparent"
             on:click={(e) => add()}
         >
             <i
@@ -74,10 +74,16 @@
     .line-container {
         width: 80px;
         min-width: max-content;
+        /* height: 100%; */
+        display: flex;
+        align-self: stretch;
         position: relative;
         /* background-color: rgba(255, 192, 203, 0.7); */
     }
 
+    .line-container .add {
+        margin-top: 0.45rem;
+    }
     .line-container:hover .add {
         visibility: visible !important;
         cursor: pointer;
@@ -107,7 +113,8 @@
     .line.failure {
         position: absolute;
         width: 50%;
-        height: calc(45px + 1.5rem + 2px);
+        /* height: calc(45px + 1.5rem + 2px); */
+        height: calc(100% - 45px);
 
         top: 22.5px;
         left: 50%;

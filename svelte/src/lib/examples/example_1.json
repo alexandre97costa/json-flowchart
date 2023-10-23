@@ -24,14 +24,40 @@
             {
                 "id": "R4",
                 "parentID": "R3",
+                "branches": 2,
                 "conditionNumber": 1,
                 "name": "Robot 4"
             },
             {
                 "id": "R5",
+                "parentID": "R4",
+                "branches": 2,
+                "conditionNumber": 1,
+                "name": "Robot 5"
+            },
+            {
+                "id": "R6",
+                "parentID": "R5",
+                "conditionNumber": 1,
+                "name": "Robot 6"
+            },
+            {
+                "id": "R7",
+                "parentID": "R5",
+                "conditionNumber": 2,
+                "name": "Robot 7"
+            },
+            {
+                "id": "R8",
+                "parentID": "R4",
+                "conditionNumber": 2,
+                "name": "Robot 8"
+            },
+            {
+                "id": "R9",
                 "parentID": "R3",
                 "conditionNumber": 2,
-                "name": "Robot 5"
+                "name": "Robot 9"
             }
         ]
     }

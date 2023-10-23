@@ -46,9 +46,9 @@
 {#if type == "robot"}
     {#if next_robots.length > 1}
         <Line {isCondition} />
-        <div class="grid-2">
+        <div class="d-flex flex-column gap-4">
             {#each next_robots as next_robot}
-                <div class="d-flex">
+                <div class="d-flex justify-content-start align-items-start">
                     <svelte:self robot={next_robot} />
                 </div>
             {/each}
@@ -64,7 +64,7 @@
 
 <style>
     .robot {
-        max-width: 200px;
+        width: 130px;
     }
     .grid-2 {
         display: grid;
